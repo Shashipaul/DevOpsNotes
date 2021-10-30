@@ -1,0 +1,18 @@
+Set HostName
+hostnamectl set-hostname master.example.com
+
+
+192.168.18.26
+
+Simcmotot1
+
+https://www.tecmint.com/create-sudo-user-on-centos/
+
+https://www.tecmint.com/install-kubernetes-cluster-on-centos-7/
+
+firewall-cmd --permanent --add-port=6783/tcp
+firewall-cmd --permanent --add-port=10250/tcp
+firewall-cmd --permanent --add-port=10255/tcp
+firewall-cmd --permanent --add-port=30000-32767/tcp
+firewall-cmd  --reload
+echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables

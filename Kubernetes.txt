@@ -1,0 +1,187 @@
+kind : pod
+
+Pod Controller :
+	kind : ReplicationController
+	kind : ReplicaSet
+	kind : Deployment (RS+ rolling Update + rollingout feature)
+	
+
+
+
+kubeadm init --tocken-ttl 0 ---->tocken will not expire
+
+
+kubeadm init --tocken-ttl=0 --apiserver-advertise-adress=<<apiserver>>   ------> Bind apiserver
+
+
+kubectl get nodes
+
+
+kubeadm token create --print-join-command ---------> create Join command
+
+example: 
+kubeadm join 192.168.18.27:6443 --token 8z5git.3jssximhbk36h2y7 --discovery-token-ca-cert-hash sha256:518a401af9f969ea5d6322f3a308a9b44af6bacd9bbd29dd532c566cb8eba113
+
+------Network Configuration for pod/containers------
+
+1) two pod can communicate each other over the same node 
+2) two pod can communicate over the different nodes
+3) All pod will get uniq ipaddress for communication
+
+Software define network(SDN)
+CNI (Contaianer network interface)
+1) Weave
+2) Calico
+3) Flannel
+4) OVS
+
+https://v1-17.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+https://v1-17.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+
+ip a s weave --------------------------------> Check the details of the master overlay swtich for (SDN) 
+
+
+kubectl run test --image=nginx -----------------------> (create pod for nginx) --> execute on master node
+
+kubectl get pod -o wide   ---------> Check the status of pod on master node
+
+kubectl get ds -n            -----------> check for the SDN switches
+  
+kubectl get ds -n kube-system   -----------> check for the kube SDN switches
+
+kubectl get po -n kube-system -o wide | grep weave 
+
+kubectl describe ds weave-net -n kube-system | grep -i image   -----> detail for cluster switch
+
+------etcd----> maintain information about the subnets 
+
+
+--------------------------------------------------->How to deploy application in kubernetes<-------------------------------------------------------
+
+------------------------>one pod having multiple containers<---------------------------------
+
+
+
+1) Command line : kubectl 
+2) File method  : 
+			lab1(Master Node): how to create plane pod
+					kubectl create ns qa   ----->create namespace for QA team. 
+					kubectl get ns ------> list namespace
+					kubectl run test --image=nginx  ------>  create pod in default namespace Command line
+					kubectl run test --image=nginx -n qa  ------>  create pod in qa namespace from Command line
+					kubectl get pod -n default -----> list running pods in default namespace
+					kubectl get pod -n qa -----> list running pods in qa namespace
+					kubectl delete pod test  ----> deleting pod test
+					kubectl delete pod test -n qa ----> deleting pod test under the namespace qa
+					kubectl get po -n qa   -----> list for the pods under qa
+					kubectl get po -n qa -i -o wide ----> list for the node where pod is running
+					kubectl run test --image=nginx -n qa --dry-un -o yaml   ----> backend file create for pod
+					kubectl run test --image=nginx -n qa --dry-run -o yaml > pod.yml ----> backend file create for pod and write into pod.yml file
+					kubectl run test --image=nginx -n qa --dry-run -o json > pod.json ----> backend file create for pod and write into pod.json file
+					kubectl delete ns qa ----> delete all the pods running under the namesapece qa
+     Pod creation from yaml (file method) based:
+					kubectl create -f pod.yml -n qa
+     Check the logs file :
+					kubectl logs 
+					
+----------------------------------------------Replication Controller--------------------------------------------------------						
+How to create pod using Kubernetes controller Resources
+					1) RC : Replication Controller   (Pod management deployment process)
+						Running an example ReplicationController 
+						yaml file for ReplicationController pod creation 
+						Refrence Page : https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/
+						
+-----------------------------------------------ReplicationController.yml-------------------------------------------------------						
+								apiVersion: v1
+								kind: ReplicationController                                               
+								metadata:
+									name: nginx
+								spec:
+									replicas: 3
+									selector:
+										app: nginx
+									template:
+										metadata:
+											name: nginx
+											labels:
+												app: nginx
+									spec:
+										containers:
+											- name: nginx
+											  image: nginx
+											  ports:
+												- containerPort: 80
+------------------------------------------------------------------------------------------------------		
+			
+		    kubectl get po ----------> check for the pods created by  ReplicationController 
+		    kubectl describe pod <pod-name> | less   -----> describe the pod details
+			kubectl get rc -------> check for existing resources
+			kubectl scale --replicas=8 rc <rc-name> ---------> create replicas of existing pods (manual Scalling in and Scalling out)
+			kubectl get po -o wide    ------> list the running pods details
+			
+			
+			kubectl edit rc <rc-name> ----------> check for the file where got information for running rc .i.e etcd file 
+			
+			kubectl apply -f ReplicationController.yml ------> push for rc change forcefully
+			kubectl delete rc <rc-name> -------> delete ReplicationController
+			
+-------------------------------------------------->REPLICASET<--------------------------------------------------------			
+
+-----------------------------------------------replicaset.yml-------------------------------------------------------		
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: frontend
+  labels:
+    app: guestbook
+    tier: frontend
+spec:
+  # modify replicas according to your case
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - name: php-redis
+        image: gcr.io/google_samples/gb-frontend:v3	
+---------------------------------------------------------------------------------------------------------	
+		ReplicaSet help : high availability / state maintain / scale ability / pod down
+		
+					kubectl apply -f replicaset.yml ----------------------> create pod for new replicasert
+					kubectl get rs
+					kubectl get pods
+					kubectl describe pod <pod-name> | grep -i controlled   -----> describe the pod details
+					
+					
+---------------------------------------------------------------------------------------------------------
+rolling update / rollout strategy
+
+				Deployment : 
+					RS+ rolling Update + rollingout feature
+					
+Day03					
+					
+			
+							
+------------------------->Existing market technology REOKICASET<-----------------------------------------						
+					
+					
+if you check the node for the pod then its under the docker
+					docker ps | grep test <pod name>
+					 
+			 		
+					 
+Refrence :
+https://v1-17.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/
+					
+					
+			
+
