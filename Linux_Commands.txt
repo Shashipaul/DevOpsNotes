@@ -17,3 +17,8 @@ firewall-cmd --permanent --add-port=30000-32767/tcp
 firewall-cmd  --reload
 echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
 
+<<<<<<< HEAD
+=======
+
+test
+>>>>>>> a2a8aa61fe3e76ac5836a7b0b3bbd9632cebdc0f
