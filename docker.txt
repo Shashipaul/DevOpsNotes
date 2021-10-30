@@ -25,7 +25,3 @@ docker exec -it <container-id> <container-name>
 
  
 
-
-UPDATE transman.ONP_LIST_TRANSFERS_JOB_QUEUE
-SET RUNNING = 0
-WHERE BUM_ID in ('8ab973ed-4046-11eb-82a2-55a8c2d23f7f') 
