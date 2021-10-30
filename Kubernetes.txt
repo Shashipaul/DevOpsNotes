@@ -1,12 +1,29 @@
-kind : pod
+Node : 
+     Kube proxy
+	 kubectl
+	 kubeadm
+	 
+Master :
+	Kube Apiservice
+	Kube etcd
+	kube Controller
+	kube Scheduler
+	 
+	 
+	  
 
+
+
+kind : pod
+------------------------------------------------------------------------------------------
 Pod Controller :
 	kind : ReplicationController
 	kind : ReplicaSet
 	kind : Deployment (RS+ rolling Update + rollingout feature)
 	
 
-
+Cluster IP: Service accessable withen clister but not from outside netowrk (.i.e Database)
+Node port service : Application accessable from outside netowrk (i.e. Web Applications) 
 
 kubeadm init --tocken-ttl 0 ---->tocken will not expire
 
@@ -164,19 +181,83 @@ rolling update / rollout strategy
 				Deployment : 
 					RS+ rolling Update + rollingout feature
 					
-Day03					
+Day03	
+-------------------------------------------------->Networking (Day03)<--------------------------------------------------------
+				
   Unit : Networking
 				1) Node Network and Pod Network Isolate
 				2) Pod should be communicate with same host using provate IPs
 				3) Pod should be communicate on the remote host Node using provate IPs
 				4) Pod should be access external Network
-				5) Traffice should be distribute across the application Pod (Pod lavel balancer)
+				5) Traffice should be distribute across the application Pod (Pod lavel balancer)											
 				6) External User should be access your application which into kubernetes cluster
+				
 			statements already avalible in Pod network
-			
-	kubectl delete all -l app=test
+				note: kubernetes by default provide software Load balancer over the Node lavel 
+							service: kube-proxy: 
 
+							
+							
+		--------------------Creating Software Load Balancer(Traffice should be distribute across the application Pod (Pod lavel balancer))-------------------------
+						Service IP Create
+							Add value in yml file ----> (kind: Service, name: my-service, env: prod) for creating load balancer
+							kubectl create -f service.yml    -----> creating load balancer
+							kubectl get service              -----> list existing services
+							kubectl describe service my-service
+							kubectl get ds -n kube-system
+							kubectl create deploy test --image=nginx
+							kubectl delete all -l app=test
+							kubectl get po -o wide 
+							kubectl exec -it pod1 /bin/sh
+							kubectl get po --show-labels
+							kubectl run pod1 --image=nginx --labels=env=prod 
+							kubectl run pod2 --image=nginx --labels=env=prod          
 	
+	
+	
+	-----Create service ip from command line:
+				kubectl scale --replicas=4 deploy test --> create 4 replicas
+				kubectl expose deploy test --port=8080 --target-port=80	
+     Check for the selector value :
+				kubectl describe service test | grep -i -B2 selector
+				
+	--------------------External User should be access your application which into kubernetes cluster-------------------------	
+		
+				kubectl expose deploy test --port=8080 --target-port=80	--type=NodePort	
+
+								----->External Load Balancer<-------	
+									
+							node 1 (Expose NodePort 31247) 
+								internal load balancer (Kube Proxy)----->External Load Balancer (3 party) -----> DNS ()
+							node 2 (Expose NodePort 31247)
+							
+							
+							
+							Creating External Load Balancer on AWS 
+							Under the EC2----> Select  Load balancers----> Create Load balancer 
+																							---> Application Load Balancer
+																														--> Target Group 
+																																	-> Name (kubernetes_target)
+																														--> Register Targets
+																																    -> Add Servers (Select both instances then on port change port Then add to registered)
+							Use DNS name for further use of configuration																										
+																																	
+ 
+Day04:
+
+
+
+				
+-------------------------------------------------->Troubleshooting<--------------------------------------------------------			
+
+systemctl status kubelet -l			
+
+netstat -tnip | grep kube-proxy	   
+
+			
+			
+
+		
 							
 ------------------------->Existing market technology REOKICASET<-----------------------------------------						
 					

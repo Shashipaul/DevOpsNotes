@@ -22,6 +22,8 @@ docker kill <container-id>    -------> kill the running immediately
 
 docker exec -it <container-id> <container-name>
 
+docker search <image name>
+
 
  
 
