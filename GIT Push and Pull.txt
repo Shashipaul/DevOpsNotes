@@ -223,4 +223,4 @@ You can now make a PULL request by clicking "Create pull request".
 You can also now write a message and then click "Create pull request" again.
 
 
-The process afterward is the same as above in "PULL Request through Command Line".
+The process afterward is the same as above in "PULL Request through Command Line ".
