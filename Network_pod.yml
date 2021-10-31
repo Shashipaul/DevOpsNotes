@@ -1,0 +1,12 @@
+appVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+	 env: prod
+  ports:
+	- protocol: TCP
+	  port: 8080
+	  targetPort: 80
+	 
