@@ -244,8 +244,52 @@ Day03
 																																	
  
 Day04:
+-------------------------------------------------->Service Discovery(Day04)<--------------------------------------------------------
+kubectl service po -n kube-system
+kubectl get pod
+kubectl get deploy
+kubectl delete deploy test
+kubectl get all
+kubectl create -f pod.yml 
+
+kubectl get po -o wide | grep -i running
+
+kubectl get service -n kube-system
+nslookup <<Dns Name>>>
+
+kubectl create deploy webapp --image=nginx
+
+kubectl expose deploy webapp --port=80
 
 
+mysql--pod--service-1:CLUSTER   ----> tier1
+
+wordpress--pod--service-1:NodePort ----> tier2
+
+
+      --------------------How to write yml file-------------------------
+	  
+		kubectl explain deploy
+		kubectl explain deploy.metadata
+		kubectl explain deploy.specs
+		kubectl explain deploy.specs.selector		
+		
+	  -----------------------Create mysql pod----------------------------
+	 Refrence:  https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/   
+	  kubectl create -f mysql_pod.yml
+	  kubectl expose deploy mysql --port=3306
+	  
+	  	  -----------------------Create wordpress pod----------------------------
+	 Refrence:  https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/   
+	  kubectl create -f wordpress-pod.yml
+	  kubectl expose deploy mysql wordpress --type=NodePort
+	  kubectl get service wordpress
+	  kubectl describe service  wordpress
+	  
+	  
+	  
+		
+		
 
 				
 -------------------------------------------------->Troubleshooting<--------------------------------------------------------			
@@ -253,9 +297,17 @@ Day04:
 systemctl status kubelet -l			
 
 netstat -tnip | grep kube-proxy	   
+kubectl get nodes
+kubectl get po -o wide
+kubectl delete po pod2 --force
+kubectl get po -o wide
 
+
+cd .kube/
+Check for the application version /app/vi/serverresources.json | grep deployment
+Check for the application version /vi/serverresources.json | grep service
 			
-			
+list of kubernetes objects    ---> check google for objects 			
 
 		
 							
