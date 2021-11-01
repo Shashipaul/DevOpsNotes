@@ -1,0 +1,6 @@
+IAM is use to Manage users
+
+	Centralized
+	Access
+	Permissions
+	

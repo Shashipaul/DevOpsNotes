@@ -286,6 +286,48 @@ wordpress--pod--service-1:NodePort ----> tier2
 	  kubectl get service wordpress
 	  kubectl describe service  wordpress
 	  
+	  --------------------Pod Scheduling-------------------------
+	  
+	  Type 1) Node Based	  
+	  
+		kubectl run pod1 --image=nginx --dry-run -o yaml > pod.yml
+		kubectl create -f Scheduling-Node-Based-pod.yml
+		kubectl get po pod1 -o wide
+	  
+		vim deployment-Based-pod.yml
+		kubectl create -f deployment-Based-pod.yml
+		kubectl get po pod1 -o wide
+	  
+	  Type 2) lable and selector
+	  
+		kubectl label node node1.example.com disk=ssd                  ----> Assign lables to node
+		kubectl label node node2.example.com disk=hdd                  ----> Assign lables to node
+		kubectl get node -L disk                               ---------------> list all the pods with the label disk
+		kubectl get node node1.example.com --show-labels         ---------------> list all the labels
+		kubectl edit node node1.example.com  --------> How to check labels in etcd
+		kubectl delete pod pod1     -----> delete existing pods
+		kubectl delete deploy test      -----> delete deployment test
+		
+		Note : Check for the disk tag under the nameSector
+				
+		kubectl create -f deployment-Based-pod_lable_selector.yml
+		kubectl get po pod1 -o wide   ----> list pod details
+		kubectl get events | grep -i falied    ---> check for the event recorded with falied
+		kubectl label node node1.example.com disk=sata --overwrite ---> use to change the node lable 
+		
+		
+	  Type 3) Affinity and anti-affinity
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	  
 	  
 	  
 		

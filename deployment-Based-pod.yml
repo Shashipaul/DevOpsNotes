@@ -1,0 +1,23 @@
+apiVersion: app/v1
+kind: Deployment
+metadata:
+   creationTimestamp: null
+   lables:
+     app: test
+   name: test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: test
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      lables:
+        app: test
+    spec:
+      containers:
+      - images: nginx
+        name: nginx
+      nodeName: node2.example.com  

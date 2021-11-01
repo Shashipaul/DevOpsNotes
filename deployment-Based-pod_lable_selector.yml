@@ -1,0 +1,12 @@
+appVersion: v1
+kind: Pod
+metadata:
+  lables:
+    run: pod1
+  name: pod1
+spec:
+  containers:
+  - image: nginx
+    name: pod1
+  nameSector:
+      disk: ssd
