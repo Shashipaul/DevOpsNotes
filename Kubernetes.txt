@@ -316,23 +316,54 @@ wordpress--pod--service-1:NodePort ----> tier2
 		kubectl label node node1.example.com disk=sata --overwrite ---> use to change the node lable 
 		
 		
-	  Type 3) Affinity and anti-affinity
+Day05:		
+--------------------Pod Scheduling-------------------------		
 		
-		
-		
-		
-		
-		
-		
-		
-		
+	  Type 3) Node Affinity and anti-affinity
+	  
+			kubectl lable node worker1.example.com disk=ssd
+			kubectl create -f Scheduling-Affinity-anti-affinity-node.yml
+			
+			rule:
+				soft: perfered
+				hard: required
+			
+			kubectl get node -L disk
+			kubectl get po with-node-affinity -o wide
+			
+		operator:
+		   Affinity:
+				In
+				Exists
+		   Anti-affinity:
+				NotIn
+				DoesNotExists
+		 
+			kubectl get po with-node-affinity -o wide with-node-affinity
 		
 	  
 	  
-	  
+		Type 4) Pod Affinity and anti-affinity   (Particulars type of pod not scheduled on same nodes)
 		
+			kubectl get all
+			
+			kubectl create -f Scheduling-Affinity-anti-affinity-pod.yml
+			
+			kubectl create -f Scheduling-Affinity-anti-affinity-pod-app.yml  (Create simple pod for app tag)
+			
+			
+			kubectl create -f Scheduling-anti-affinity-pod.yml  (not to create Database pod where app pod is avalible)
+			
+			| Node1 		| Node2 		| Node3
+			| webserver1    | webserver2    | webserver3
+			| cache-1		| cache-2		| cache-3	
+			
+			kubectl create -f redis-podAntiAffinity-pod.yml
+			kubectl create -f  web-server-podAntiAffinity-pod.yml  (rule is not to run same pods on same nodes)
+			
+			kubectl scale --replicas=3 deploy redis-cache    ---> Increase the scaleblity of redis-cache server
 		
-
+1:00:39------------------->
 				
 -------------------------------------------------->Troubleshooting<--------------------------------------------------------			
 
