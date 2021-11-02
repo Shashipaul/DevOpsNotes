@@ -363,8 +363,31 @@ Day05:
 			
 			kubectl scale --replicas=3 deploy redis-cache    ---> Increase the scaleblity of redis-cache server
 		
-1:00:39------------------->
+
+			kubectl create -f podAntiAffinity_podAffinity_pod.yml   -----> (it has a rule to run web and redis on same node but both have independent on everynode)
+			kubectl get po -l app=store 
+			
+			kubectl describe node <node name> | less   ------------> Check for the topologyKey its depends on service provider .i.e AWS(EKS)
+			kubectl get events
+			
+		Type 5) taint and toleration		
+			 how to check of node is taint or not
+			      kubectl describe nodes <nodename> | grep -i taint
+			  command to create node taint
+				kubectl taint node <node name> key=value:Effect
+				example : kubectl taint nodes worker1.emaple.com red=color:NoSchedule
+						example of key=value is red=color
+						Effect (3 type) :  1. NoSchedule
+										   2. NoExecute        --> dont on existing pod which already without toleration
+										   3. PreferNoSchedule  ---> soft
+										   
+			Create Pod with tolerations :
+				kubectl create -f taint_toleration_pod.yml	
+            kubectl get po -all-namesapeces -o wide | greap worker1 				
 				
+			kubectl get po -all-namesapeces -o wide | greap worker1 | wc -l ------> count
+										   
+			 
 -------------------------------------------------->Troubleshooting<--------------------------------------------------------			
 
 systemctl status kubelet -l			
