@@ -386,7 +386,85 @@ Day05:
             kubectl get po -all-namesapeces -o wide | greap worker1 				
 				
 			kubectl get po -all-namesapeces -o wide | greap worker1 | wc -l ------> count
-										   
+			
+			
+			
+Day06:		
+---------------------------------------------Volume(Day06)-----------------------------------------------------------------
+Type of Volume:
+	1) Shared
+	2) Non Shared
+
+How to provide external volume for Pod
+Volume controller resources
+
+			1) PV: Persistent Volume    ------> Cluster level resource
+			2) PVC: Persistent Volume Claim
+
+Deployment----PVC----bound---PV----Storage-service---- 		
+How to create PV using NFS Server
+Type of access mode:
+	1) ReadWriteOnce : At a one pod can use or mount
+	2) ReadWriteMany : 
+	3) ReadOnlyMany
+
+persistentVolumeReclaimPolicy type:
+    1) Recycle
+	2) retain
+	3) Deleted : will do cloud based .i.e. AWS
+	
+EBS : ReadWriteOnce
+	
+Create NFS server :
+https://www.tecmint.com/how-to-setup-nfs-server-in-linux/	
+	
+##### https://kubernetes.io/docs/concepts/storage/persistent-volumes/	
+
+
+PV ----> PVC----> Attach to Pod		
+Create filder for configuration file:
+		mkdir nfs
+		cd nfs
+		vi nfs-pv.yml
+		cd..
+		vim ./kube/config
+		kubectl get clusterrole | grep admin    --------> check for the role
+		kubectl create -f deployment-Based-pod.yml
+		kubectl get pv
+		kubectl create ns dev
+		kubectl create -f PersistentVolumeClaim-pod.yml -n dev      ---> dev is new namesapece
+		kubectl get pvc -n dev  ---> dev is new namesapece
+	
+How to use pvc in Pod
+         kubectl create deploy mysql --image=mysql:5.6 -n dev --dry-run -o yaml > NFS-Deployment-mysql-pod.yml
+		 vi NFS-Deployment-mysql-pod.yml
+		 kubectl create -f NFS-Deployment-mysql-pod.yml -n dev
+		 kubectl get po -n dev
+		 kubectl logs <<pod-name>> -n dev
+		 kubectl exec -it <pod name> /bin/bash
+		 
+		 kubectl edit pv pv1   -----> edit or encrase storage in PV
+
+how to create localtype PV
+		 
+		 
+---------------mount local volume--------------
+	mkdir -p /volume/voll
+	vim PersistentVolume-local.yml
+	kubectl create -f PersistentVolume-local.yml    ---PV
+	kubectl create -f PersistentVolumeClaim-local.yml  ---PVC
+	cubectl get pvc
+	kubectl create deploy mysql --image=nginx -n dev --dry-run -o yaml > local-Deployment-nginx-local-pod.yml
+	kubectl create -f local-Deployment-nginx-local-pod.yml
+	kubectl get po
+	kubectl get po -o wide
+	
+	
+	
+		
+		
+			
+		
 			 
 -------------------------------------------------->Troubleshooting<--------------------------------------------------------			
 
@@ -398,12 +476,29 @@ kubectl get po -o wide
 kubectl delete po pod2 --force
 kubectl get po -o wide
 
+vim .kube/config
+
+
 
 cd .kube/
 Check for the application version /app/vi/serverresources.json | grep deployment
 Check for the application version /vi/serverresources.json | grep service
 			
-list of kubernetes objects    ---> check google for objects 			
+list of kubernetes objects    ---> check google for objects 		
+
+vim /etc/exports
+			/exports/nfs *(rw, no_root_squash)
+exportfs -r
+
+
+
+	
+	
+
+
+
+
+
 
 		
 							

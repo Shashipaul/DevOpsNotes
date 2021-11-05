@@ -1,0 +1,30 @@
+api-Version: apps/v1
+kind: Development
+metadata:
+  creationTimestamp: null
+  labels:
+    app: myapp
+  name: myapp
+spec:
+  replicas: 1
+  selector:
+	matchLabels:
+	  app: myapp
+  strategy: {}
+  template:
+    metadata:
+	  creationTimestamp: null
+	  labels:
+		app: myapp
+	spec:
+	  containers:
+	  - image: nginx
+		name: nginx
+	    volumeMounts:
+	    - mountPath: "/usr/share/nginx/html"
+	      name: mypd        
+       volumes:
+         - name: mypd
+           persistentVolumeClaim:
+               claimName: localPVC
+		
