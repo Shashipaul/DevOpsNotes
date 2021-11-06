@@ -459,6 +459,22 @@ how to create localtype PV
 	kubectl get po
 	kubectl get po -o wide
 	
+---------------------------------------------(Day07)-----------------------------------------------------------------
+
+
+	
+---------------------------Quota-------------------
+
+	1) Compute Quota: CPU/Memory
+	   a) Pod level:
+			kubectl create deploy mysql --image=nginx -n dev --dry-run -o yaml > Quota-Deployment-nginx-local-pod.yml
+			vim Quota-Deployment-nginx-local-pod.yml
+			kubectl create -f Quota-Deployment-nginx-local-pod.yml
+			
+	   
+	   b) Deployment : Mysql : 4GB  / app: 2 GB                         1 CPU = 1000micron
+	   c) Project level : 10GB RAM/2 CPU
+	2) Resource Quota : pods/service/rs/deploy/pvc
 	
 	
 		
@@ -476,7 +492,14 @@ kubectl get po -o wide
 kubectl delete po pod2 --force
 kubectl get po -o wide
 
-vim .kube/config
+vim .kube/config   ---> Change of configuration
+
+kubectl describe node node1.example.com | less 
+
+kubectl get events | grep -i failed
+
+
+free -m
 
 
 
