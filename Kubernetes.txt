@@ -475,6 +475,75 @@ how to create localtype PV
 	   b) Deployment : Mysql : 4GB  / app: 2 GB                         1 CPU = 1000micron
 	   c) Project level : 10GB RAM/2 CPU
 	2) Resource Quota : pods/service/rs/deploy/pvc
+
+
+------------Compute Quota: CPU/Memory--------------	
+How to Apply compute Quota on deployment/ReplicaSet/RC
+  kubectl get all
+  kubeclt get po  
+  kubectl get quota
+  
+  kubectl create quota mytest --hard=memory=1Gi,cpu=800m
+  
+  kubectl describe quota <quota name>
+  kubectl get events | grep -i failed
+  kubectl edit quota <quota name>    -------> Edit existing quota
+  kubectl scale --replicas=4 deploy myapp
+  watch Kubectl get po
+  kubectl describe node <node name> | less
+  
+  kubectl create quota mytest --hard=memory=1Gi,cpu=800m -n qa    ----------> define quota for namesapece qa
+  
+------------Resource Quota : pods/service/rs/deploy/pvc--------------	  
+How to apply Resource Quota  -----> its implemented on project level
+   kubectl create quota mytest --hard=memory=1Gi,cpu=800m --dry-run -o yaml > Resource-Quota-Deployment-nginx-local-pod.yml
+   vim Resource-Quota-Deployment-nginx-local-pod.yml
+   kubectl apply -f Resource-Quota-Deployment-nginx-local-pod.yml
+   kubectl get quota ResourceQuota
+   kubectl get server  
+   
+How to create limit range :    -----> use to define limit rather on pod level
+	vim limit-range-Deployment-nginx-local-pod.yml
+	kubectl delete LimitRange	
+	kubectl create -f limit-range-Deployment-nginx-local-pod.yml
+	kubectl describe quota <quota name>
+	
+	
+ 	
+   
+   
+----------------------Daemonsets--------------------
+    
+Pod Controller -----> ReplicaSet/ReplicaController                        -----> A DaemonSet ensures that all (or some) Nodes run a copy of a Pod
+	kubectl create -f DaemonSet-Deployment-nginx-local-pod.yml
+	kubectl get ds
+	kubectl describe node master.example.com | grep -i taint
+	kubeclt edit node worker1.example.com 
+	
+	
+	
+----------------------Types Pod--------------------	
+	  regular pod
+	  static pod    --> create static pod in any node  ---> there is no  benefit
+			Create yaml file under the following path /etc/kubernetes/manifests      -----> Creating static pod
+
+
+
+if etcd deleted from master.ecample.com 
+
+Day08
+-----------------------------------------multi Container Pod(Day08)-----------------------------------------------------------
+
+ 
+	  
+	
+	
+
+
+
+  
+  
+	
 	
 	
 		
@@ -492,6 +561,10 @@ kubectl get po -o wide
 kubectl delete po pod2 --force
 kubectl get po -o wide
 
+systemctl restart kubelet
+ grep -f manifests /var/lib/kubeclt/config.yaml
+
+
 vim .kube/config   ---> Change of configuration
 
 kubectl describe node node1.example.com | less 
@@ -501,7 +574,7 @@ kubectl get events | grep -i failed
 
 free -m
 
-
+kubernetes certificate location /etc/kubernetes/pki/     ------> location for the certificate 
 
 cd .kube/
 Check for the application version /app/vi/serverresources.json | grep deployment
@@ -518,7 +591,7 @@ exportfs -r
 	
 	
 
-
+fluentd ---log analytics tool
 
 
 
