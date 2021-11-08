@@ -596,27 +596,110 @@ A Secret is an object that contains a small amount of sensitive data such as a p
 	kubeclt create secret tls my-cert --key=exam.key --cert=exam.crt
 	kubectl create -f allocate-Cetificate-pod.yml
 	
+Day09
+-----------------------------------------(Day09)-----------------------------------------------------------
+RBAC : Role Base Access Control
 
-    
+kubectl create clusterrolebinding --help
 
-----1:30 Next---------------------		 
-
-
-   
-
-
-
-	
-	
-
-
-
-  
-  
-	
-	
-	
+		* Role : permission rule against the resources
+		      pod-reader
+        * User: ram/shyam/manish
+		  ram		     
+        * Rolebinding: pod-reader to ram
+		* project
 		
+Create Role : 
+1. Default/cluster Role
+     
+    
+2. Custom Roles
+     * cluster level: 
+	     example : ram role to clister-admin
+	           kubectl get clusterrole 
+			   kubectl get roles -n kube-system
+			   kubectl get roles -n default
+			   kubectl get clusterrolebinding | grep clister-admin
+			   grep admin .kube/config
+			   kubectl describe clusterrolebinding clister-admin
+			   kubectl create clusterrolebinding --name=super-admin --clusterrole=clister-admin --user=shashi
+			   kuebctl get clusterrolebinding | grep super-admin
+			   kuebctl describe clusterrolebinding | grep super-admin
+			   
+			   kubecrl delete clusterrolebinding super-admin
+			   
+			   kubctl create clusterrolebinding admin-prod -- --clusterrole=admin --user=shashi -n prod    ----> -n means namesapece
+			   kubectl get clusterrolebinding -n prod | grep admin-prod
+			   kubecrl delete clusterrolebinding admin-prod
+                  
+			   
+			   
+	 * project level: 
+	     assign role to admin -n dev 
+	    if role need to bind on  project level:
+             kubectl create rolebinding --help
+             kubectl create	rolebinding view-pod --clusterrole=view --user=shashi -n qa
+			 kubectl get rolebinding -n qa
+			 kubctl create clusterrolebinding shashi-view-prod --clusterrole=view --user=shashi ----> only able to list 		
+			 kubctl create clusterrolebinding shashi-edit-prod --clusterrole=edit --user=shashi -n qa ----> only able to edit
+			 
+			 
+			 kubectl get clusterrole edit -o yaml > clusterrole.yml
+
+
+			 
+	 
+How to configure kubectl on local machine to access master node :
+        rpm -qa kubectl
+        create copy of the file /etc/kubernetes/admin.conf	
+        then create the copy of the file with user name example : shashi.conf 
+        copy the content of admin.conf ----> shashi.conf
+        convert base64 file from /etc/kubernetes/pki/ca.crt  ---->   cat /etc/kubernetes/pki/ca.crt | base64 -w0
+        compare  shashi.conf  certificate value to 	base64 converted file
+		change the user value to shashi      ---> contexts--> user: shashi
+		                                                      name : shashi@kubernetes
+															  current-contexts: shashi@kubernetes
+														users----->
+                                                             -name : shashi
+		delete certificate value for following users --> user: 
+														    client-certificate-date:
+															client-key-data:
+        copy ca.cet to shashi folder 		/etc/kubernetes/pki/ca.crt ---> shashi folder 
+		copy ca.key to shashi folder 		/etc/kubernetes/pki/ca.key ---> shashi folder 
+        now create key for shashi          --> openssl genrse -out shashi.key 2048
+		certificate signing requet(csr) ----> openssl req -new -key shashi.key -out shashi.csr -subj "/CN=shashi/O=qa"
+		create csr to crt (sign the "ca crt" to "user csr"  ---->   openssl x509 -reg -in shashi.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out shash.crt -days 365
+        Then 3 files are important --->
+                                        shashi.conf
+									    shashi.crt
+										shashi.key
+									cat shashi.crt | base64	-wO
+									cat shashi.key | base64	-wO
+		copy the outcome of base64 and past that value to shashi.conf for following parameter users --> user: 
+														    client-certificate-date:   <past base64 result shashi.crt >
+															client-key-data:	<past base64 result shashi.key >
+        send this file to use (shashi) and use with following command :
+		                        
+                               kubectl get nodes --kubeconfig=shashi.conf   or copy shashi.conf file to .kube/config (it help  to use run command without kubeconfig)	
+
+How to create custom role:
+
+
+                     ---------------------------------next 1:00 -----------------------------------------------
+
+         
+        
+----------------------------------------------------------------------
+
+Ingress Controller
+
+
+Metrics
+
+
+etcd backup
+
+hardway setup		
 		
 			
 		
