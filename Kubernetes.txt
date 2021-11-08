@@ -592,7 +592,7 @@ https://kubernetes.io/docs/concepts/configuration/secret/
 	kubectl describe po <podname>
 
 ------------------------------------allocate Cetificate on pod------------------------------------	
-
+A Secret is an object that contains a small amount of sensitive data such as a password, a token, or a key
 	kubeclt create secret tls my-cert --key=exam.key --cert=exam.crt
 	kubectl create -f allocate-Cetificate-pod.yml
 	
