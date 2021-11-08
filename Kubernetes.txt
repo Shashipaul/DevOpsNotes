@@ -534,8 +534,78 @@ if etcd deleted from master.ecample.com
 Day08
 -----------------------------------------multi Container Pod(Day08)-----------------------------------------------------------
 
- 
-	  
+
+multi Contaianer in single Pod?
+       kubectl create -f Side-Car-Pattern-Pod.yml
+	   
+-----------Example--------
+
+	  Container1    Contaianer2
+   (app-container) (sidecar-container)
+			| Shared |  
+			  |     |   ----> Volume of Pod
+			    | |    ---> IP of Pod
+				Pod
+				
+				
+    kubectl logs <pod name>   --> list running containers under the pod 
+	kubectl exec -it -c <container name> <pod name> /bin/sh   ----> login to one container under the pod with multiple container
+Side Car Pattern?
+adapter Pattern? 
+
+--------------------------------- Init Contaianer---------------------------------
+Init Contaianer ---------> APP Contaianer
+
+
+This page provides an overview of init containers: specialized containers that run before app containers in a Pod. Init containers can contain utilities or setup scripts not present in an app image.
+
+
+Init Contaianer it is use to now pre processes and if the result of the pre is successfull then it execute App Contaianer
+
+
+kubectl create -f UsedCase-Init-Container.yml
+kubectl create -f UsedCase2-Init-Container.yml
+
+
+------------------------------------ConfigMap------------------------------------
+https://kubernetes.io/docs/concepts/configuration/configmap/
+    A ConfigMap is an API object used to store non-confidential data in key-value pairs. Pods can consume ConfigMaps as environment variables, command-line arguments, or as configuration files in a volume.
+	
+         kubectl create configmap myconfig --from-literal=apiserver=192.68.0.254
+		 kubectl get myconfig
+		 kubectl describe configmap myconfig
+		 
+    How to use configmap :
+		kubectl create -f ConfigMaps-pod.yml
+		
+    For File :
+	     kubectl create configmap apache --from-file=apache.conf
+		 kubectl create -f dapi-test-pod.yml
+		 
+------------------------------------secrets------------------------------------
+https://kubernetes.io/docs/concepts/configuration/secret/
+	A Secret is an object that contains a small amount of sensitive data such as a password, a token, or a key. Such information might otherwise be put in a Pod specification or in a container image. 
+	
+	kubectl create secret generic super-secret --from-literal=mypw=redhat
+	kubctl get secret
+    kubectl get po
+	kubectl describe po <podname>
+
+------------------------------------allocate Cetificate on pod------------------------------------	
+
+	kubeclt create secret tls my-cert --key=exam.key --cert=exam.crt
+	kubectl create -f allocate-Cetificate-pod.yml
+	
+
+    
+
+----1:30 Next---------------------		 
+
+
+   
+
+
+
 	
 	
 
@@ -561,6 +631,8 @@ kubectl get po -o wide
 kubectl delete po pod2 --force
 kubectl get po -o wide
 
+kubectl delete pod --all --force
+
 systemctl restart kubelet
  grep -f manifests /var/lib/kubeclt/config.yaml
 
@@ -571,7 +643,7 @@ kubectl describe node node1.example.com | less
 
 kubectl get events | grep -i failed
 
-
+env ----> see all enviroment varible in Linux
 free -m
 
 kubernetes certificate location /etc/kubernetes/pki/     ------> location for the certificate 
@@ -587,13 +659,13 @@ vim /etc/exports
 exportfs -r
 
 
-
+kuebctl logs -c <podname>
 	
 	
 
 fluentd ---log analytics tool
 
-
+openssl reg -x509 -nodes -day 365 -newkey rsa:2048 -keyout exam.key -out exam.crt -subj "/CN=Shashi/O=IT"
 
 
 		

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-sidecar
+spec:
+  # Create a volume valled 'shared-logs' that the
+  # app and sidecar share
+  volumes:
+  - name: shared-logs
+    emptyDir: {}
+  containers:
+  # Main application container
+  - name: app-container
+    image: alpine # alpine is a simple Linux OS image
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do date >> /var/log/app.txt; sleep 5;done"]
+    volumeMounts:
+    - name: shared-logs
+      mountPath: /var/log
+      
+  # Sidecar Container
+  - name: sidecar-container
+    image: nginx:1.7.9
+    ports:
+      - containerPoth: 80
+    volumeMounts:
+    - name: shared-logs
+      mountPath: /user/share/nginx/html # nginx-specific mount path
