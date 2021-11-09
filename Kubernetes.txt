@@ -722,18 +722,71 @@ pre-requisite:
 		            ETCDCTL_API=3 etcdctl snapshot save /root/mysnapshot.db --endpoints=https://127.0.0.1:2379 --cacert=/etc/kubernetes/pki/ca.crt --cert=/etc/kubernetes/pki/server.crt --key=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key
 					
 		  Restore Commands (check the required configuration from etcd.yaml)    (initial-advertise-peer-urls  ---> --initial-advertise-peer-urls) (--name ip-172-31-27-180    ---> --name=master.ecample.com) (--initial-cluster ---> --initial-cluster==master.ecample.com=https://172.31.42.105:2380 ):
-                   	ETCDCTL_API=3 etcdctl --endpoints=https://[127.0.0.1]:2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+		    Before restore take the backup of existing file with --> mv etcd etcd.old under the folder /lib/etcd: 
+			
+                   	
+					
+		    under the /etc/kubernetes/manifests check for the backup folder then change the value for --data-dir  under the folder etcd.yaml
+			cd /var/lib/
+			mv etcd etcd.old   --> backup the existing etcd
+			
+			ETCDCTL_API=3 etcdctl --endpoints=https://[127.0.0.1]:2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt \
 					--name=master \
 					--cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key \
-					--data-dir /var/lib/etcd-from-backup \
+					--data-dir /var/lib/etcd\
 					--initial-cluster=master=https://127.0.0.1:2380 \
 					--initial-cluster-token etcd-cluster-1 \
-					--initial-advertise-peer-urls=https://127.0.0.1:2380 \
+					--initial-advertise-peer-urls=https://127.0.0.1:2380
+			cd /etc/kubernetes/manifests
+            mv etcd.yaml /root
+			cp etcd.yaml /etc/kubernetes/manifests/.   (restart etcd)
 	 
           Check the status :
 		            ETCDCTL_API=3 etcdctl snapshot status /root/mysnapshot.db --endpoints=https://127.0.0.1:2379 --cacert=/etc/kubernetes/pki/ca.crt --cert=/etc/kubernetes/pki/server.crt --key=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key
+					
+					
 
 
+					
+------------------------------------Metrics---------------------------------------
+Tools :
+	heapster
+	https://github.com/kubernetes-sigs/metrics-server.git
+	https://github.com/kubernetes-sigs/metrics-server
+	
+	cd metrics-server
+	 git branch -a
+	 git checkout remotes/origin/release-0.3
+	 cd deploy
+	 cd 1.8+
+	 kubectl create -f .
+     kubectl get ns
+     kubectl get po -n kube-system
+     kubectl logs metrics-server-1234444 -n kube-system 
+     cd /etc/kubernetes/manifests	
+     vim kube-apiserver.yaml   ----> add parameter --> - --enable-aggregator-routing=true 
+      kubectl get po -n kube-system ---> check for the new api pod
+      kubectl top nodes
+      
+       kubectl edit deploy merrics-server -n kube-system --> add parameter--->  
+	   - --kubelet-insecure-tls
+       - --kubelet-perfered-address-types=InternalIP
+
+
+    Commands to check status : 
+				kubectl top po -n kube-system
+				kubctl top nodes
+				kubectl top pod <podname>
+				
+	prometheus
+	
+--------------------------------------Auto Scalling-------------------------------
+  1. create pod 
+  2. kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10    ---> apply autoscaling
+  3. kubectl get hpa ---> check the load on pod ( hpa --->  horizontal pod autoscaler)
+
+  
+  use case : https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
 ----------------------------------------------------------------------------------
 Ingress Controller
 
@@ -794,7 +847,8 @@ fluentd ---log analytics tool
 
 openssl reg -x509 -nodes -day 365 -newkey rsa:2048 -keyout exam.key -out exam.crt -subj "/CN=Shashi/O=IT"
 
-
+journalctl -u kubctl | lrss
+sudo find / -name "*spiserver*log"
 		
 							
 ------------------------->Existing market technology REOKICASET<-----------------------------------------						
