@@ -600,6 +600,9 @@ Day09
 -----------------------------------------(Day09)-----------------------------------------------------------
 RBAC : Role Base Access Control
 
+https://kubernetes.io/docs/reference/access-authn-authz/rbac/
+
+
 kubectl create clusterrolebinding --help
 
 		* Role : permission rule against the resources
@@ -628,7 +631,7 @@ Create Role :
 			   
 			   kubecrl delete clusterrolebinding super-admin
 			   
-			   kubctl create clusterrolebinding admin-prod -- --clusterrole=admin --user=shashi -n prod    ----> -n means namesapece
+			   kubctl create clusterrolebinding admin-prod -- --clusterrole=admin --user=shashi   ----> -n means namesapece
 			   kubectl get clusterrolebinding -n prod | grep admin-prod
 			   kubecrl delete clusterrolebinding admin-prod
                   
@@ -682,22 +685,63 @@ How to configure kubectl on local machine to access master node :
 		                        
                                kubectl get nodes --kubeconfig=shashi.conf   or copy shashi.conf file to .kube/config (it help  to use run command without kubeconfig)	
 
-How to create custom role:
 
 
-                     ---------------------------------next 1:00 -----------------------------------------------
 
-         
-        
-----------------------------------------------------------------------
+---------------------------------How to create custom role -----------------------------------------------
+      kubectl create role -n qa ----> custom role for name space
+	  kubectl create clusterrole
+	  kubectl create role create-pod --resource=pod --verb=create,watch -n qa     ----> Role for only create pod resource
+	  kubectl create rolebinding shashi-create --role=create-pod --user=shashi -n qa  -----> binding role with user  
+	  
+      kubectl edit role -n qa    
+      
+	  kubectl create role create-pod --resource=pod --verb=create,watch,list,get,delete -n qa --dry-run -o yaml > role.yml
+	  
+	  kubectl create clusterrole my-role --resource=pod --verb=create,watch,list,get,delete -n qa --dry-run -o yaml > cluster-role.yml
+	  
+---------------------------------------etcd backup-------------------------------
+ 
+ before the backup check the status of existing cluster:
+        kubctl get ns
+		kubctl get pod
 
+
+
+package need to install : 
+         yum install etcd -y
+pre-requisite:
+	     utlitiy : etcdctl
+		 certificate : 
+		              ca.crt
+					  etcd.crt
+					  etcd.key
+					  etcd url and port no : 2379   --> path : /etc/kubernetes/pki/etcd
+					  
+          Backup Commands:
+		            ETCDCTL_API=3 etcdctl snapshot save /root/mysnapshot.db --endpoints=https://127.0.0.1:2379 --cacert=/etc/kubernetes/pki/ca.crt --cert=/etc/kubernetes/pki/server.crt --key=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key
+					
+		  Restore Commands (check the required configuration from etcd.yaml)    (initial-advertise-peer-urls  ---> --initial-advertise-peer-urls) (--name ip-172-31-27-180    ---> --name=master.ecample.com) (--initial-cluster ---> --initial-cluster==master.ecample.com=https://172.31.42.105:2380 ):
+                   	ETCDCTL_API=3 etcdctl --endpoints=https://[127.0.0.1]:2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+					--name=master \
+					--cert=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key \
+					--data-dir /var/lib/etcd-from-backup \
+					--initial-cluster=master=https://127.0.0.1:2380 \
+					--initial-cluster-token etcd-cluster-1 \
+					--initial-advertise-peer-urls=https://127.0.0.1:2380 \
+	 
+          Check the status :
+		            ETCDCTL_API=3 etcdctl snapshot status /root/mysnapshot.db --endpoints=https://127.0.0.1:2379 --cacert=/etc/kubernetes/pki/ca.crt --cert=/etc/kubernetes/pki/server.crt --key=/etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key
+
+
+----------------------------------------------------------------------------------
 Ingress Controller
 
 
 Metrics
 
 
-etcd backup
+
 
 hardway setup		
 		

@@ -1,0 +1,50 @@
+USE transman;
+
+DELIMITER $$
+CREATE PROCEDURE `DELETE_ORGANIZATION_PARAMETERS`()
+BEGIN
+DECLARE kill_done int;
+DECLARE EXIT HANDLER FOR NOT FOUND SET kill_done = 1;
+
+BEGIN
+
+DECLARE cursor_organization_parameter_id INTEGER DEFAULT 0;
+DECLARE orgid INTEGER DEFAULT 0;
+DECLARE org_changelog_id INTEGER DEFAULT 0;
+
+
+DECLARE cursor_i CURSOR FOR
+select id from transman.ORGANIZATION_PARAMETERS where param_name = 'onp_cloud_billing_enable' and param_value = 'true';
+
+set org_changelog_id = (select value from transman.BT_SEQ where id = 'organizationParamsChangeLogSequence');
+update transman.BT_SEQ set value = value + 10000 where id = 'organizationParamsChangeLogSequence';
+OPEN cursor_i;
+read_loop:LOOP
+FETCH cursor_i INTO cursor_organization_parameter_id;
+
+set org_changelog_id = org_changelog_id + 1;
+set orgid = (select organization_id from transman.ORGANIZATION_PARAMETERS where id = cursor_organization_parameter_id);
+delete from transman.ORGANIZATION_PARAMETERS  where id = cursor_organization_parameter_id;
+insert into transman.ORGANIZATION_PARAMS_CHANGELOG(seqid, modifier, node_id, time, comment) Values(org_changelog_id,'raman.mehra@basware.com',orgid, NOW(),'Deleted Parameter from script:  onp_cloud_billing_enable true ');
+IF kill_done THEN
+
+LEAVE read_loop;
+
+END IF;
+
+END LOOP;
+
+CLOSE cursor_i;
+
+END;
+END$$
+
+DELIMITER ;
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+call DELETE_ORGANIZATION_PARAMETERS();
+
+DROP procedure IF EXISTS `DELETE_ORGANIZATION_PARAMETERS`;
