@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+th, td {
+  background-color: #96D4D4;
+}
+div.a {
+  text-align: justify;
+  text-justify: inter-word;
+}
+div.b {
+  background-color: lightgrey;
+  width: 300px;
+  border: 2px solid green;
+  padding: 10px;
+  margin: 20px;
+}
+</style>
+</head>
+<body>
+
+<h2>Ingress</h2>
+
+<p>AWS Certified Developer</p>
+
+<table style="width:100%">
+  <tr>
+    <th>S No</th>
+    <th>Title</th> 
+    <th>Description</th>
+	<th>Refrence</th>
+	<th>Steps</th>
+  </tr>
+   <tr>
+    <td style="width:5%">0</td>
+    <td style="width:10%">Example</td>
+    <td style="width:20%"><div class="a">Example<br></div></td>	
+	<td style="width:20%">Example</td>
+	<td style="width:35%">Example</td>
+  </tr>	
+  <tr>
+    <td style="width:5%">1</td>
+    <td style="width:10%">Ingress Controllers</td>
+    <td style="width:20%"><div class="a">Ingress may provide load balancing,SSL termination and name-based virtual hosting.
+	Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster.
+	Traffic routing is controlled by rules defined on the Ingress resource.<br></div>	
+	</td>
+	<td "width:20%"><img src="images\Ingress_1.PNG" alt="cluster" width="500" height="200"><br>	
+	<img src="images\Ingress_2.PNG" alt="cluster" width="500" height="200">
+	<p><strong><b>Result Image-1:</b></strong></p>
+	<img src="images\Result-Image-1.PNG" alt="cluster" width="500" height="50">
+	<p><strong><b>Result Image-2:</b></strong></p>
+	<img src="images\Result-Image-2.PNG" alt="cluster" width="500" height="50">	
+	<p><strong><b>Result Image-3:</b></strong></p>
+	<img src="images\Result-Image-3.PNG" alt="cluster" width="500" height="50">	
+	<p><strong><b>Result Image-4:</b></strong></p>
+	<img src="images\Result-Image-4.PNG" alt="cluster" width="500" height="50">	
+	<p><strong><b>Result Image-5:</b></strong></p>
+	<img src="images\Result-Image-5.PNG" alt="cluster" width="500" height="50">	
+	<p><strong><b>Result Image-6:</b></strong></p>
+	<img src="images\Result-Image-6.PNG" alt="cluster" width="500" height="50">	
+	<p><strong><b>Result Image-7:</b></strong></p>
+	<img src="images\Result-Image-7.PNG" alt="cluster" width="500" height="50">	
+	<p><strong><b>Result Image-8:</b></strong></p>
+	<img src="images\Result-Image-8.PNG" alt="cluster" width="500" height="50">
+	<p><strong><b>Result Image-9:</b></strong></p>
+	<img src="images\Result-Image-9.PNG" alt="cluster" width="500" height="50">
+	</td>
+	<td "width:35%">
+	<p>Steps to install nginx :</p>
+			<ul>
+			<li>yum install git -y</li>
+			<li>git clone https://github.com/nginxinc/kubernetes-ingress.git</li>
+			<li>cd kubernetes-ingress/</li>
+			<li>git branch -a</li>
+			<li>git checkout -b remotes/origin/release-1.6</li>
+			 <li>git branch</li>
+			 <li>ls</li>
+			</ul>
+		<p>Check for listed below listed files: </p>
+			<ul>
+				<li>vs-definition.yaml</li>
+				<li>gs-definition.yaml</li>
+				<li>ts-definition.yaml</li>
+				<li>vsr-definition.yaml</li>
+				<li>nginx-config.yaml</li>
+				<li>other</li>
+				</ul>
+		<p>Check for the rbac:</p>
+			<ul>
+				<li>cd..</li>
+				<li>cd rbac</li>
+				<li>First Create NameSpace:<br> 
+				    * Under the kubernetes-ingress\deployments\common<br>
+				    * Execute: <b>"kubectl create -f ns-and-sa.yaml"</b>---- Result Image-1<br>
+					* Execute: <b>"kubectl create -f rbac/*"</b>---- Result Image-2<br>
+					* Execute: <b>"kubectl delete clusterrole nginx-ingress"</b><br>
+					* Execute: <b>"kubectl delete clusterrolebinding nginx-ingress"</b>					
+					</li>
+					<li>Execute: <b>"vim rbac.yaml"</b>---- Result Image-3 ---- <b>Change the value v1beta1 to v1 on</b><em style="color:red;" ><b> multiple lines</b></em><br>
+					* Execute: <b>"kubectl create -f rbac.yaml"</b>
+					</li>
+					<li>Under the common dir deploy all the file <b>"kubectl create -f ."</b> ---- Result Image-4</li>
+					<li>Under the deployment<b>"kubectl create -f ."</b><br>
+					* Execute: <b>"kubectl create -f nginx-plus-ingress.yaml"</b><br>  
+					* Execute: <b>"kubectl get ns"</b><br>					
+					* Execute: <b>"kubectl get po -n nginx-ingress"</b><br>
+					* Execute: <b>"kubectl get po -n nginx-ingress -o wide"</b>---- Result Image-5<em em style="color:blue;"> (Pod is running on the pod working1.example.com)</em>
+					</li>
+					<li>Create Service ---- Result Image-5<br>
+					<li>Add Value: <b>"vi nginx-ingress.yaml"</b> ---Result Image-9 <em style="color:blue;">(Add value <u><b>hostnetwork: true</b></u> into the deploy yaml)</em></li>
+					* Execute: Step 1: <b>"kubectl create deploy webapp --image=nginx"</b><br>
+					* Execute: Step 2: <b>"kubectl expose deploy webapp --port=8085 --targer-port=80"<em style="color:blue;"> Export externally</em></b>					
+					</li>
+					<li>Create file ---- <b>"vim service.yaml" add below text: </b><br>
+					      <div class="b">
+					      &ensp;&ensp;&ensp;apiVersion: networking.k8s.io/v1beta1<br>
+						  &ensp;&ensp;&ensp;kind: Ingress<br>
+						  &ensp;&ensp;&ensp;metadata:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;name: myrule-host<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;annotations :<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;kubernetes.io/ingress.class: nginx<br>
+						  &ensp;&ensp;&ensp;spec:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;rules:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- host: www.eample.com<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;http:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;paths:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- backend:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;serviceName: webapp<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;servicePort: 8085<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- path: /<br>
+						   </div>
+					</li>
+					<li>Execute: <b>"kubectl create -f service.yaml"</b><em style="color:blue;">(Create ingress)</em></li>
+					<li>Execute: <b>"kubectl get ingress"</b> ---Result Image-7  <em style="color:blue;">(Get information about the ingress)</em></li>
+					<li>Execute: <b>"kubectl describe ingress myrule-host"</b> ---Result Image-7  <em style="color:blue;">(Get information about the ingress)</em></li>
+					<li>Execute: <b>"kubectl describe node worker1.example.com"</b> <em style="color:blue;">(Check the node details example : IP address)</em></li>
+					<li>Execute: <b>"kubectl get service"</b> <em style="color:blue;">(Check the node details example : IP address)</em>---- Result Image-8</li>
+					<li>Execute: <b>"kubectl get ingress"</b> <em style="color:blue;">(Check for the default port)</em></li>
+					<li>Teating: <b>"curl 10.99.249.51:8085"</b> <em style="color:blue;">(Check for the default port)</em></li>
+					<li>Execute: <b>"kubectl describe deploy nginx-ingress -n nginx-ingress"</b> <em style="color:blue;">(Check for the default port)</em></li>
+					<li>Execute: <b>"kubectl get po -o wide -n nginx-ingress"</b> <em style="color:blue;">(Check pod details)</em></li>
+					<li>Execute: <b>"kubectl get po"</b> <em style="color:blue;">(List pod details)</em></li>
+					<li>Execute: <b>"kubectl exec -it webapp-558867d /bin/bash"</b> <em style="color:blue;">(List pod details)</em></li>
+					<li>Execute: <b>"kubectl create deploy images --image=nginx"</b><br>
+					<li>Execute: <b>"kubectl exec -it images-558867d /bin/bash"</b> <em style="color:blue;">(List pod details)</em><br>
+					    * Execute: "cd /usr/shares/nginx/html<br>
+						* Execute: "mkdir images"<br>
+						* Execute: "echo "images server" > images/index.html<br>
+					<li>Execute: <b>"kubectl expose deploy images --port=8086  --target-port=80"</b> <em style="color:blue;">(List pod details)</em><br></li>
+					<li>Create file ---- <b>"vim service.yaml" add below text: </b><br>
+					      <div class="b">
+					      &ensp;&ensp;&ensp;apiVersion: networking.k8s.io/v1beta1<br>
+						  &ensp;&ensp;&ensp;kind: Ingress<br>
+						  &ensp;&ensp;&ensp;metadata:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;name: myrule-host<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;annotations :<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;kubernetes.io/ingress.class: nginx<br>
+						  &ensp;&ensp;&ensp;spec:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;rules:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- host: www.eample.com<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;http:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;paths:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- backend:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;serviceName: webapp<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;servicePort: 8085<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- path: /<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- host: www.eample.com<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;http:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;paths:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- backend:<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;serviceName: images<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;servicePort: 8086<br>
+						  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- path: /images<br>
+						   </div>
+						   <li>Execute: <b>"kubectl get ingress"</b> <em style="color:blue;">(List ingress details)</em><br></li>
+						   <li>Execute: <b>"kubectl delete ingress myrule-host"</b> <em style="color:blue;">(Delte ingress)</em><br></li>
+						   <li>Execute: <b>"kubectl create -f service.yaml"</b><em style="color:blue;">(Create ingress)</em></li>
+						   <li>Execute: <b>"kubectl get ingress"</b><em style="color:blue;">(List ingress)</em></li>
+						   <li>Teating: <b>"curl www.eample.com"</b> <em style="color:blue;">(Check for the DNS name</em></li>
+					</li>
+				</ul></td>
+				
+  </tr> 
+  <tr>
+    <td style="width:5%">2</td>
+    <td style="width:10%">Troubleshoot</td>
+    <td style="width:20%"><div class="a">Troubleshoot and check the status<br></div></td>	
+	<td style="width:20%">Example</td>
+	<td style="width:35%">Example</td>
+  </tr>	
+</table>
+
+</body>
+</html>

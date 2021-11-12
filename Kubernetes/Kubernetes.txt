@@ -980,8 +980,26 @@ journalctl -u kubctl | lrss
 sudo find / -name "*spiserver*log"  
 
 INTERNAL_IP=$(ip addr show eth0 | grep "inet " | awk '{print $2}' | cut -d / -f 1)    ------> how to extract IP address
+
+
+----------------------------------destroy cluster-----------------------------------
+		kubeadm reset -f     ----> destroy existing cluster
+		rm -rf /var/lib/etcd/
+
+Destroy nodes :
+        sudo su
+		kubeadm reset -f     ----> destroy existing nodes
+        rm -rf /var/lib/etcd/ 		
 		
-							
+yum remove 	kubeadm* kubelet* kubectl* -y
+yum install kubeadm-1.17.0-0 kubelet-1.17.0-0 kubectl-1.17.0-0 -y	
+kubeadm init --ignore-proflight-errors=all
+systemctl restart docker kubeleet
+systemcl daemon-reload
+rm .kube/config
+cp /etc/kubernetes/admin.conf .kube/config
+kubectl get nodes
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubctl version | base64 | tr -d '\n')"					
 ------------------------->Existing market technology REOKICASET<-----------------------------------------						
 					
 					

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+th, td {
+  background-color: #96D4D4;
+}
+div.a {
+  text-align: justify;
+  text-justify: inter-word;
+}
+</style>
+</head>
+<body>
+
+<h2>Linux</h2>
+
+<p>AWS Certified Developer</p>
+
+<table style="width:100%">
+  <tr>
+    <th>S No</th>
+    <th>Title</th> 
+    <th>Description</th>
+	<th>Refrence</th>
+	<th>Steps</th>
+  </tr>
+  <tr>
+    <td style="width:5%">1</td>
+    <td style="width:10%">Ingress Controllers</td>
+    <td style="width:25%"><div class="a">Ingress may provide load balancing,SSL termination and name-based virtual hosting.
+	Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster.
+	Traffic routing is controlled by rules defined on the Ingress resource.<br></div>	
+	</td>
+	<td "width:20%"><img src="images\Ingress_1.PNG" alt="cluster" width="500" height="200"><br>
+	<img src="images\Ingress_2.PNG" alt="cluster" width="500" height="200">
+	</td>
+	<td "width:30%">
+	<p>Steps to install nginx :</p><br>
+			<ul>
+			<li>yum install git -y</li>
+			<li>git clone https://github.com/nginxinc/kubernetes-ingress.git</li>
+			<li>cd kubernetes-ingress/</li>
+			<li>git branch -a</li>
+			<li>git checkout -b remotes/origin/release-1.7</li>
+			 <li>git branch</li>
+			 <li>ls</li>
+			</ul></td>
+  </tr> 
+  <td "width:30%">
+	<p>Uninstall rpm from linux <b>yum remove kubeadm* -y</b></p><br>			
+  </tr>   
+</table>
+
+</body>
+</html>
