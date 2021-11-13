@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+th, td {
+  background-color: #96D4D4;
+}
+</style>
+</head>
+<body>
+
+<h2>IAM</h2>
+<div>
+<table style="width:100%">
+  <tr>
+    <th>S No</th>
+    <th>Title</th> 
+    <th>Description</th>
+	<th>Steps</th>
+  </tr>
+  <tr>
+    <td style="width:5%">0</td>
+    <td style="width:10%">Example</td>
+    <td style="width:20%"><div class="a">Example<br></div></td>	
+	<td style="width:20%">Example</td>
+  </tr>	
+    <tr>
+    <td style="width:5%">1</td>
+    <td style="width:10%">Exploring EC2 Instance Types</td>
+    <td style="width:20%"><div class="a">Example<br></div></td>	
+	<td style="width:35%">
+	<p><b>EC2 Instances: </b></p>
+     <ul>	
+		  <li>Hardware</li>
+		  <li>Capabilities</li>
+		  <li>Appaliacation Requirements</li><br> </ul>
+	  <p><b>Type of EC2 Instances: </b></p><ul>     	
+		  <li>General Purpose<br>
+		     * Types : t1.micro,t2.micro, etc
+		  </li>
+		  <li>Compute Optimized<br>
+		     * Types : c6g.medium etc
+		  </li>
+		  <li>FPGA Instance<br>
+		     * Types :f1.2xlarge etc
+		  </li> 
+		  <li>GPU Instance<br>
+		     * Types :g2.2xlarge, p2.xlarge etc
+		  </li> 
+		  <li>Machine learning ASIC instances<br>
+		     * Types :inf1.xlarge etc
+		  </li> 
+		  <li>Memory optimized<br>
+		     * Types :m2.xlarge etc
+		  </li> 
+		  <li>Storage optimized<br>
+		     * Types :d2.xlarge etc
+		  </li> 
+	 </ul></td>	  
+  </tr>	
+   <tr>
+    <td style="width:5%">2</td>
+    <td style="width:10%">How to Use Putty</td>
+    <td style="width:20%">
+	<p><strong><b>EC2_1:</b></strong></p>
+	<img src="images\EC2_1.PNG" alt="cluster" width="500" height="50">
+	<p><strong><b>EC2_2:</b></strong></p>
+	<img src="images\EC2_2.PNG" alt="cluster" width="500" height="50">
+	<p><strong><b>EC2_3:</b></strong></p>
+	<img src="images\EC2_3.PNG" alt="cluster" width="500" height="50">
+	</td>	
+	<td style="width:35%">
+	<p><b>How to use Putty to login on EC2: </b></p>
+	&ensp;&ensp;<p><b>Type of EC2 Instances: </b></p><ul>
+				<ul>
+		          <li>In AWS Management Concole create EC2 Instance then <em style="color:blue;">download key</em></li>
+				  <li>Then use keygun to convert key:<br>
+				      &ensp;&ensp;* Add Host Name and Save Session <br>
+				      &ensp;&ensp;* Load as existing private key file<br>
+					  &ensp;&ensp;* <em style="color:blue;">Click on >>> </em> Save provate key<br>
+					  &ensp;&ensp;* Save the new key file with ppk extension<br>
+					  &ensp;&ensp;* Take public IP address of ec2 instance<br>
+					  &ensp;&ensp;* under the putty configure Esssion >>> <em style="color:red;"><b>EC2_1</b></em><br>
+					  &ensp;&ensp;* Take public IP address of ec2 instance<br>
+					  &ensp;&ensp;* Add-Login Username under Connection Date >>> <em style="color:red;"><b>EC2_2</b></em><br>
+					  &ensp;&ensp;* Add-Login Private key file for authentication under SSH >>> <em style="color:red;"><b>EC2_3</b></em><br>
+					  &ensp;&ensp;* Click Save on Session</em><br>
+					  &ensp;&ensp;* Click open and then Yes</em><br>	
+					  &ensp;&ensp;* Also change the Apparance under windows putty</em><br>		
+					  &ensp;&ensp;* Lacture</em><br>						  
+					  </li> 				  
+	            </ul>		 
+  </tr>	
+</table>
+</div>
+
+</body>
+</html>
