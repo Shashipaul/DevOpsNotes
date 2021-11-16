@@ -99,8 +99,7 @@ th, td {
     <td style="width:5%">3</td>
     <td style="width:10%">EBS (Elastic Block Store) Volumes</td>
     <td style="width:20%"><div class="a"><p><strong><b>EBS_1:</b></strong></p>
-	<img src="images\EBS_1.PNG" alt="cluster" width="500" height="250"><br></div></td>	
-	EBS_1.PNG
+	<img src="images\EBS_1.PNG" alt="cluster" width="500" height="250"><br></div></td>
 	<td style="width:20%">Storage Volumes that you can attach yo your EC2 instances<br>
 	<ul>
 	<li>Types of EBS Volume:<br>
@@ -123,6 +122,119 @@ th, td {
 		  &ensp;&ensp;*&ensp;Then Click on Attach<br>
 		</li>		
 		
+	<ul>
+	</td>
+  </tr>	
+  <tr>
+    <td style="width:5%">4</td>
+    <td style="width:10%">Load Balancer</td>
+    <td style="width:20%"><div class="a"><p><strong><b>LB_1 :</b></strong></p>
+	<img src="images\LB_1.PNG" alt="cluster" width="500" height="250"><br></div>
+    <p><strong><b>LB_2 :</b></strong></p>
+	<img src="images\LB_2.PNG" alt="cluster" width="500" height="250"><br></div>
+	<p><strong><b>LB_3 :</b></strong></p>
+	<img src="images\LB_3.PNG" alt="cluster" width="500" height="250"><br></div>
+	</td>		
+	<td style="width:20%">A Load Balancer distributes network traffice across a group of servers<br>
+	<ul>
+	<li>Types of Load Balancer (Refrence :<em style="color:red;"><b>LB_1</b></em>):<br>
+		&ensp;&ensp;*&ensp;Application Load Balancer >>(Layer 7) used for HTTP and HTTPS requet >> Refrence :<em style="color:red;"><b>LB_2</b></em><br>
+		&ensp;&ensp;*&ensp;Network Load Balancer >>>(Layer 4) TCP and high performance<br>
+		&ensp;&ensp;*&ensp;Gateway Load Balancer<br>
+		&ensp;&ensp;*&ensp;Classic Load Balancers >>> LEGACY (HTTP/HTTPS and TCP)<br>		
+		</li>
+		<li>Error for Load Balancer: <br> 
+		  &ensp;&ensp;*&ensp;Error 504 Gateway Timeout >> The target failed to respond<br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Steps of troubleshoot :<br>
+		  &ensp;&ensp;&ensp;;&ensp;&ensp;*&ensp; Check for the application >> Refrence :<em style="color:red;"><b>LB_3</b></em><br><br>		  
+		</li>	
+	<ul>
+	</td>
+  </tr>	
+    <tr>
+    <td style="width:5%">5</td>
+    <td style="width:10%">Route 53</td>
+    <td style="width:20%"><div class="a"><p><strong><b>Route_1 :</b></strong></p>
+	<img src="images\Route_1.PNG" alt="cluster" width="500" height="250"><br></div>   
+	<p><strong><b>Route_2 :</b></strong></p>
+	<img src="images\Route_2.PNG" alt="cluster" width="500" height="250"><br></div>	
+	<p><strong><b>Route_3 :</b></strong></p>
+	<img src="images\Route_3.PNG" alt="cluster" width="500" height="250"><br></div>
+	<p><strong><b>Route_4 :</b></strong></p>
+	<img src="images\Route_4.PNG" alt="cluster" width="500" height="250"><br></div>
+	<p><strong><b>LB_4 :</b></strong></p>
+	<img src="images\LB_4.PNG" alt="cluster" width="500" height="250"><br></div>
+	<p><strong><b>LB_5 :</b></strong></p>
+	<img src="images\LB_5.PNG" alt="cluster" width="500" height="250"><br></div>
+	<p><strong><b>LB_6 :</b></strong></p>
+	<img src="images\LB_6.PNG" alt="cluster" width="500" height="250"><br></div>
+	<p><strong><b>Route_5 :</b></strong></p>
+	<img src="images\Route_5.PNG" alt="cluster" width="500" height="250"><br></div>
+	<p><strong><b>Route_6 :</b></strong></p>
+	<img src="images\Route_6.PNG" alt="cluster" width="500" height="250"><br></div>
+	<p><strong><b>Route_7 :</b></strong></p>
+	<img src="images\Route_7.PNG" alt="cluster" width="500" height="250"><br></div>
+	</td>		
+	<td style="width:20%">008<br>
+	<ul>
+	<li>Its DNS service :<br>
+		&ensp;&ensp;*&ensp;Map with below listed services:<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;EC2 Instance<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Load Balancer<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;S3 Buckets<br>		
+		</li><br>
+    <li>Step 1: Create Route 53<br>		
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Select Network & Content Delivery<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Select Route 53<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;On dashbaord Register Domain<br>	
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Choose a domain name: <br>		
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Complete Registrant Contact >>> Refrence :<em style="color:red;"><b>Route_2</b></em><br>
+		</li><br>
+	 <li>Step 2: Create EC2<br>		
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Select Instance<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Click Launch instance<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Select AMI<br>	
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Select instance Type<br>		
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Configure instance Details >>> Refrence :<em style="color:red;"><b>Route_3 and Route_4</b></em><br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Add Storage<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Add Tag<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Configure Security Group  >> Add new rule for HTTP on port 80<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Click on Launch Instance<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Choose an existing key pair<br>
+		</li><br>	
+		 <li>Step 3: Create Load Balancer<br>		
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Select Load Balancer<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Create Load Balancer<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Select create Application Load Balancer<br>	
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Configure Load Balancer >>> Refrence :<em style="color:red;"><b>LB_5</b></em><br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Select Availability Zones<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Cleck Next<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Configure Security Groups<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Configure Routing<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Create new Target group >>> Refrence :<em style="color:red;"><b>LB_4</b></em><br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Name<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Select Target type<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Select Protocol<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Select Port<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Health Checks<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Select Protocol<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Select path<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Click Next<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Register Targets<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Select the EC2 instance<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Click add to register >>> Refrence :<em style="color:red;"><b>LB_6</b></em><br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Click Next<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Create<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Connect Load Balancer with Route 53<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Copy the url of Load Balancer<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Create the Mapping between DNS (Route 53) and Load Balancer<br>
+		&ensp;&ensp;&ensp;&ensp;*&ensp;Select Route 53<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Select Hosted Zones<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Click your Hosted Zone<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Create Alias >>> Refrence :<em style="color:red;"><b>Route_5</b></em><br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Click on create Record >>> Refrence :<em style="color:red;"><b>Route_6</b></em><br>		
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Click Create Record<br>		
+		</li>	
 	<ul>
 	</td>
   </tr>	
