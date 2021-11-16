@@ -9,13 +9,24 @@ table, th, td {
 th, td {
   background-color: #96D4D4;
 }
+div.a {
+  text-align: justify;
+  text-justify: inter-word;
+}
+div.b {
+  background-color: lightgrey;
+  width: 300px;
+  border: 2px solid green;
+  padding: 10px;
+  margin: 20px;
+}
 </style>
 </head>
 <body>
 
-<h2>Docker</h2>
+<h2>docker</h2>
 
-<p>Docker Training</p>
+<p>docker Training</p>
 
 <table style="width:100%">
   <tr>
@@ -26,7 +37,7 @@ th, td {
   </tr>
   <tr>
     <td>1</td>
-    <td>Docker Architecture</td>
+    <td>docker Architecture</td>
     <td><br>
 	<ul>
 			<li>Lab2 60 min</li>
@@ -37,7 +48,7 @@ th, td {
   </tr>  
   <tr>
     <td>2</td>
-    <td>Installation of Docker</td>
+    <td>Installation of docker</td>
 	<td><ul>			
 			<li>Installation Steps:<br>
 				&ensp;&ensp;&ensp;* sudo yum install -y yum-utils<br>
@@ -55,51 +66,76 @@ th, td {
   </tr>  
   <tr>
     <td style="width:5%">3</td>
-    <td style="width:10%">Learning the Basics of Docker</td>
-    <td style="width:20%"><ul>
-			    <li>Docker Images and Containers<br>
-			    &ensp;&ensp;&ensp;* Docker Images >>>> <em style="color:blue;">List Images avlible on servers</em><br>
-				&ensp;&ensp;&ensp;* Docker ps <br>
-				&ensp;&ensp;&ensp;* Docker search mysql >>>> <em style="color:blue;">Search for the Images</em><br>
-				&ensp;&ensp;&ensp;* Docker pull mysql:5.6 >>>> <em style="color:blue;">Pull Docker images</em><br>
+    <td style="width:10%">Learning the Basics of docker</td>
+    <td style="width:45%"><ul>
+			    <li>docker Images and Containers :<br>
+			    &ensp;&ensp;&ensp;* docker Images >>>> <em style="color:blue;">List Images avlible on servers</em><br>
+				&ensp;&ensp;&ensp;* docker ps <br>
+				&ensp;&ensp;&ensp;* docker search mysql >>>> <em style="color:blue;">Search for the Images</em><br>
+				&ensp;&ensp;&ensp;* docker pull mysql:5.6 >>>> <em style="color:blue;">Pull docker images</em><br>
 				&ensp;&ensp;&ensp;* ls -ld /var/lib/docker/ >>>>><em style="color:blue;">Location of the image pulled</em><br>
-				&ensp;&ensp;&ensp;* Docker history -(Image ID)- >>>>>> <em style="color:blue;">List information about the image</em>>>>>><em style="color:Blue;">Reference</em> : Docker_1<br>
+				&ensp;&ensp;&ensp;* docker history -(Image ID)- >>>>>> <em style="color:blue;">List information about the image</em>>>>>><em style="color:Blue;">Reference</em> : docker_1<br>
 				&ensp;&ensp;&ensp;* docker version<br>				
 				</li>
 			</ul>
 			<ul>
-			    <li>How to create Containers<br>
-			    &ensp;&ensp;&ensp;* Docker Images >>>> <em style="color:blue;">List Images avlible on servers</em><br>	
-				&ensp;&ensp;&ensp;* docker run -it --name=test centos:7>>>> <em style="color:blue;">Create Docker Containers<br>
-				&ensp;&ensp;&ensp;&ensp;from image and login into it (i >> Image t >>> terminal)</em><br>&ensp;&ensp;&ensp;* docker ps>>>> <em style="color:blue;">Check the status &ensp;&ensp;&ensp;&ensp;of docker</em><br>
-				&ensp;&ensp;&ensp;* Docker top -(Container Name)->>>> <em style="color:blue;">Show us the container processes</em><br>		
-				&ensp;&ensp;&ensp;* Docker start -(Container Name)->>>> <em style="color:blue;">Start docker from the container</em><br>
-				&ensp;&ensp;&ensp;* Docker stats -(Container Name)->>>> <em style="color:blue;">Stats of running docker</em><br>	
-                &ensp;&ensp;&ensp;* Docker attach -(Container Name)->>>> <em style="color:blue;">Login inside container where bin/bash shell avalible</em><br>	
+			    <li>How to create Containers :<br>
+			    &ensp;&ensp;&ensp;* docker Images >>>> <em style="color:blue;">List Images avlible on servers</em><br>	
+				&ensp;&ensp;&ensp;* docker run -it --name=test centos:7 >>> <em style="color:blue;">Create docker Containers from image and login into it (i: Image t: term)</em><br>
+				&ensp;&ensp;&ensp;* docker ps >>>> <em style="color:blue;">Check the status of docker</em><br>
+				&ensp;&ensp;&ensp;* docker ps -a >>>> <em style="color:blue;">Check the status of docker</em><br>
+				&ensp;&ensp;&ensp;* docker top -(Container Name)->>>> <em style="color:blue;">Show us the container processes</em><br>		
+				&ensp;&ensp;&ensp;* docker start -(Container Name)->>>> <em style="color:blue;">Start docker from the container</em><br>
+				&ensp;&ensp;&ensp;* docker stats -(Container Name)->>>> <em style="color:blue;">Stats of running docker</em><br>	
+                &ensp;&ensp;&ensp;* docker attach -(Container Name)->>>> <em style="color:blue;">Login inside container where bin/bash shell avalible</em><br>	
 				&ensp;&ensp;&ensp;* Press (Ctl + p + q) >>>> <em style="color:blue;">To logout from the container</em><br>	
-				&ensp;&ensp;&ensp;* Docker stop -(Container Name)->>>> <em style="color:blue;">Stop docker from the container</em><br>	
-			    &ensp;&ensp;&ensp;* Docker system df >>>> <em style="color:blue;">Storage resource<br>
-				&ensp;&ensp;&ensp;&ensp;utlization by docker</em><em style="color:Blue;"> Reference</em> : Docker_3<br>
-				&ensp;&ensp;&ensp;* Docker inspect -(Container Name)->>>> <em style="color:blue;">Inspect the container details</em></em><em style="color:Blue;"> Reference</em> : Docker_4<br>				
+				&ensp;&ensp;&ensp;* docker stop -(Container Name)->>>> <em style="color:blue;">Stop docker from the container</em><br>	
+			    &ensp;&ensp;&ensp;* docker system df >>>> <em style="color:blue;">Storage resource utlization by docker</em><em style="color:Blue;"> Reference</em> : docker_3<br>
+				&ensp;&ensp;&ensp;* docker inspect -(Container Name)->>>> <em style="color:blue;">Inspect the container details</em></em><em style="color:Blue;"> Reference</em> : docker_4<br>				
 				</li></ul>
-				<ul><li>How to setup service container (ngenx)<br>
-			</li></ul>
-		      <p>Change the location of new registry>>>> <b>vim /etc/sysconfig/docker</em>>>>>><em style="color:Blue;">Reference</em> : Docker_2</p></li>
-			  <p>Docker inspect network bridge | grep -i subnet >>>> <b>Check for the status of brige subnet</b>
-			  &ensp;&ensp;&ensp;* Docker run -d --name=webserver -(Container ID)->>>> <em style="color:blue;">Run the service container ID<br>
-			  &ensp;&ensp;&ensp;* Docker exec -it webserver /bin/bash>>> <em style="color:blue;">Login to container</em><br>
-			  </li>
+				<ul><li>How to setup service container (ngenx):			
+		      <p>Create the location of new registry>>>> <b>vim /etc/sysconfig/docker</b></em>>>>>><em style="color:Blue;">Reference</em> : docker_2</p>
+			  <p>docker inspect network bridge | grep -i subnet >>>> <b>Check for the status of brige subnet</b><br>
+			  &ensp;&ensp;&ensp;* docker run -d --name=webserver -(Container ID)->>>> <em style="color:blue;">Run the service container ID</em><br>
+			  &ensp;&ensp;&ensp;* docker exec -it webserver /bin/bash>>> <em style="color:blue;">Login to container</em><br>
+			  &ensp;&ensp;&ensp;* docker rm -(Container name)- >>> <em style="color:blue;">Delete container</em><br>
+			  &ensp;&ensp;&ensp;* docker logs -(Container name)- >>> <em style="color:blue;">Check for the docker container logs</em><br>
+			  &ensp;&ensp;&ensp;* docker run -d --name=db -e MYSQL_ROOT_PASSWORD=root --cpus=0.5 mysql:5.6 >>> <em style="color:blue;">Create docker with cpu</em><br>
+			  &ensp;&ensp;&ensp;* docker run -it --name=demo --restart=always centos:7 >>> <em style="color:blue;">-- restart means whenever reboot happens it will automatically start docker container</em><br>
+			  &ensp;&ensp;&ensp;* docker start $(docker ps -q -a) >>> <em style="color:blue;">Starting docker container using single command</em><br>
+			  </li></ul>
+			  <ul>
+			    <li>Example :<br>
+				  &ensp;&ensp;&ensp;* docker run -d --name=db -e MYSQL_ROOT_PASSWORD=root mysql:5.6<br> 
+				  &ensp;&ensp;&ensp;* docker inspect db | grep -i ipaddress >>>> Check IP address of docker container<br>				  
+				 </li></ul>
+			  
 	</td>
 	<td style="width:20%">
-	<p><strong><b>Docker_1:</b></strong></p>
-	<img src="images\Docker_1.PNG" alt="cluster" width="500" height="250">
-	<p><strong><b>Docker_2:</b></strong></p>
-	<img src="images\Docker_2.PNG" alt="cluster" width="500" height="250">
-	<p><strong><b>Docker_3:</b></strong></p>
-	<img src="images\Docker_3.PNG" alt="cluster" width="500" height="250">
-	<p><strong><b>Docker_4:</b></strong></p>
-	<img src="images\Docker_4.PNG" alt="cluster" width="500" height="150">
+	<p><strong><b>docker_1:</b></strong></p>
+	<img src="images\docker_1.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>docker_2:</b></strong></p>
+	<img src="images\docker_2.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>docker_3:</b></strong></p>
+	<img src="images\docker_3.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>docker_4:</b></strong></p>
+	<img src="images\docker_4.PNG" alt="cluster" width="500" height="150">
 	</td>		
+  </tr> 
+    <tr>
+    <td style="width:5%">4</td>
+    <td style="width:10%">How to Expose Container for world Network</td>
+    <td style="width:45%"><p>Need to create port forwarding for container with Docker Host Port</p><br>	
+	<ul>
+			<li>Instructions (Port Mapping):<br>
+			  &ensp;&ensp;&ensp;* docker run -d -p 8080:80 --name=webserver1 ngenx:latest >>> -p use to forward port<br>
+			  &ensp;&ensp;&ensp;* netstat -tnIp | grep -w 8080<br>
+			  &ensp;&ensp;&ensp;* Lab3 --> 1:05<br>
+			</li>
+			</ul>
+		
+	</td>
+	<td style="width:20%"><a href="iamlab.html">IAM Lab</a> <br></td>
   </tr>  
 </table>
 
