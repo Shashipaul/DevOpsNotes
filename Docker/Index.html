@@ -58,7 +58,8 @@ div.b {
 				&ensp;&ensp;&ensp;* systemctl start docker<br>
 				&ensp;&ensp;&ensp;* systemctl enable docker<br>
 				&ensp;&ensp;&ensp;* docker info | grep -i server<br>
-				&ensp;&ensp;&ensp;* docker version<br>				
+				&ensp;&ensp;&ensp;* docker version<br>	
+				&ensp;&ensp;&ensp;* docker info<br>					
 				</li>
 			</ul>	
 	</td>
@@ -120,22 +121,54 @@ div.b {
 	<img src="images\docker_3.PNG" alt="cluster" width="500" height="250">
 	<p><strong><b>docker_4:</b></strong></p>
 	<img src="images\docker_4.PNG" alt="cluster" width="500" height="150">
+	<p><strong><b>docker_5:</b></strong></p>
+	<img src="images\docker_5.PNG" alt="cluster" width="500" height="150">
 	</td>		
   </tr> 
     <tr>
     <td style="width:5%">4</td>
     <td style="width:10%">How to Expose Container for world Network</td>
-    <td style="width:45%"><p>Need to create port forwarding for container with Docker Host Port</p><br>	
+    <td style="width:45%"><p>Need to create port forwarding for container with Docker Host Port :</p>
 	<ul>
 			<li>Instructions (Port Mapping):<br>
 			  &ensp;&ensp;&ensp;* docker run -d -p 8080:80 --name=webserver1 ngenx:latest >>> -p use to forward port<br>
 			  &ensp;&ensp;&ensp;* netstat -tnIp | grep -w 8080<br>
-			  &ensp;&ensp;&ensp;* Lab3 --> 1:05<br>
+			  &ensp;&ensp;&ensp;* docker run -d -p 172.31.12.137:8080:80 --name=webserver1 ngenx:latest >>><div class=a>&ensp;&ensp;&ensp;&ensp; bind with IP address and -p use to forward port</em>>>>><em style="color:Blue;">Reference</em> : docker_5</p></div>
+			  &ensp;&ensp;&ensp;* docker run -d -p 0.0.0.0:8080:80 --name=webserver1 ngenx:latest >>><div class=a>&ensp;&ensp;&ensp;&ensp; bind with default IP address and -p use to forward port (manual)</em>>>>><em style="color:Blue;">Reference</em> : docker_5</p></div>
+			  &ensp;&ensp;&ensp;* docker run -d -p 8087:8080 -p 8088:80 -n=webserver6 ngenx:latest<br>
+			  &ensp;&ensp;&ensp;* docker stop $(docker ps -q -a) >>> <em style="color:blue;"><b>stop all running docker</b></em><br>
+			  &ensp;&ensp;&ensp;* docker rm $(docker ps -q -a) >>> <em style="color:blue;"><b>remove all running docker</b></em><br>
+			  &ensp;&ensp;&ensp;* docker run -d -P --name=webserver6 ngenx:latest >>> <em style="color:blue;"><b> -P : Bind any avalible port</b></em><br>
 			</li>
 			</ul>
 		
 	</td>
-	<td style="width:20%"><a href="iamlab.html">IAM Lab</a> <br></td>
+	<td style="width:20%"></td>
+  </tr>  
+   <tr>
+    <td style="width:5%">5</td>
+    <td style="width:10%">Build Docker Image</td>
+    <td style="width:45%"><p>Create custom Images with the base images :</p>
+	<ul>
+			<li>Instructions (Docker Image):<br>
+			  &ensp;&ensp;&ensp;* docker images<br>
+			  &ensp;&ensp;&ensp;* find /var/lib/docker/ -name run.sh >>> <em style="color:blue;"><b>check the writing layer of the docker</b></em><br>
+			  &ensp;&ensp;&ensp;* docker commit test centos.v1 >>> <em style="color:blue;"><b>commit changes in existing image</b></em><br>	
+			  &ensp;&ensp;&ensp;* docker run -it --name=test centos.v1 >>> <em style="color:blue;"><b>create container from base image</b></em>>>><em style="color:Red;">Reference : <b>docker_6</b></em><br>
+			  &ensp;&ensp;&ensp;* docker rmi -(image name)- >>> <em style="color:blue;"><b>Delete image</b></em><br>
+			  &ensp;&ensp;&ensp;* docker save centos:apache > apache.tar >>> <em style="color:blue;"><b>backup the base image with change layer</b></em><br>
+			  &ensp;&ensp;&ensp;* docker rmi -f $(docker iamges -q)<br>
+			  &ensp;&ensp;&ensp;* docker load -i apache.tar >>> <em style="color:blue;"><b>create container form packed tar file</b></em><br>
+			  &ensp;&ensp;&ensp;* ls /var/lib/docker2/overlay2/ <em style="color:blue;"><b>list the image data. To  check this information need overlay2 path for the docker
+			  &ensp;&ensp;&ensp;* Lab 3 -----------------------> 2:00 hour <-----------------------------------
+			  </b></em><br>
+			</li>
+			</ul>
+		
+	</td>
+	<td style="width:20%">
+	<p><strong><b>docker_6:</b></strong></p>
+	<img src="images\docker_6.PNG" alt="cluster" width="500" height="250"></td>
   </tr>  
 </table>
 
