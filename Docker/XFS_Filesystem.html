@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<p>The XFS filesystem is a high performance journalling filesystem. XFS is the default file system for RedHat Linux 7. XFS supports a maximum file system size of 500 TB and a maximum file size of 16 TB. You can create an XFS file system on a regular disk partition and on a logical volume.</p>
+<p>The data section of an XFS file system contains the file system metadata (inodes, directories, and indirect blocks) and the user file data. The data section is partitioned into allocation groups, which are virtual storage regions of fixed size. Any files and directories that you create can span multiple allocation groups. Each allocation group manages its own set of inodes and free space independently of other allocation groups to provide both scalability and parallelism of I/O operations.</p>
+<p>The XFS journal (or log) can be located internally in the data section of the file system, or externally on a separate device to reduce the number of disk seeks. The journal stores changes to the file system metadata while the file system is running until those changes are written to the data section. XFS journaling guarantees the consistency of the file system following loss of power or a system crash. When mounting a file system after a crash, the journal is read to complete operations that were in progress at the time of the crash.</p>
+<h2>Examples of Creating XFS File System</h2>
+<h3>1. Creating XFS filesystem with internal log on the same device</h3>
+<p>Use the mkfs.xfs or mkfs –t xfs command to create an XFS file system. The following example creates an XFS file system with an internal log on the /dev/sdc disk. As shown in the slide, parameters for the file system are displayed as output.</p>
+<div class="codeme">
+<pre># mkfs.xfs /dev/sdc
+meta-data=/dev/sdc               isize=512    agcount=4, agsize=1310720 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=0, sparse=0
+data     =                       bsize=4096   blocks=5242880, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal log           bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0</pre>
+</div>
+<h3>2. Creating XFS filesystem with journal on another device</h3>
+<p>The next example creates an XFS file system on /dev/sdb but places the journal on another device, /dev/sdc. The size option specifies a 10000 block journal:</p>
+<div class="codeme">
+<pre># mkfs.xfs -l logdev=/dev/sdc,size=10000b /dev/sdb
+meta-data=/dev/sdb               isize=512    agcount=4, agsize=1310720 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=0, sparse=0
+data     =                       bsize=4096   blocks=5242880, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =/dev/sdc               bsize=4096   blocks=10000, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0</pre>
+</div>
+<h3>3. Creating XFS filesystem on logical volume</h3>
+<p>The next example creates an XFS file system with a stripe-unit size of 32 KB and 6 units per stripe on a logical volume:</p>
+<div class="codeme">
+<pre># mkfs.xfs -d su=32k,sw=6 /dev/mapper/vg_test-test_lv 
+meta-data=/dev/mapper/vg_test-test_lv isize=512    agcount=8, agsize=9592 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=0, sparse=0
+data     =                       bsize=4096   blocks=76736, imaxpct=25
+         =                       sunit=8      swidth=48 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal log           bsize=4096   blocks=624, version=2
+         =                       sectsz=512   sunit=8 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0</pre>
+</div>
+<p>XFS uses the stripe-unit size and the number of units per stripe information to align data, inodes, and the journal appropriately for the storage. On LVM and Multiple Devices (MD) volumes and some hardware RAID configurations, XFS can automatically select the optimal stripe parameters.</p>
+<h3>4. Overwriting an existing filesystem with XFS filesystem</h3>
+<p>The next example includes the output of the mkfs.xfs command. The <strong>-f</strong> option forces the overwrite of an existing file system type. The <strong>–L</strong> option sets the file system label to “<strong>XFS</strong>“. The <strong>-b size=1024</strong> option sets the logical block size to 1024 bytes.</p>
+<div class="codeme">
+<pre># mkfs.xfs -f -L XFS -b size=1024 /dev/sdb
+meta-data=/dev/sdb               isize=512    agcount=4, agsize=5242880 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=0, sparse=0
+data     =                       bsize=1024   blocks=20971520, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal log           bsize=1024   blocks=10240, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0</pre>
+</div>
+<h2>Uderstanding the output of mkfs.xfs command</h2>
+<p>The output shows that an XFS file system has up to three parts: </p>
+<ul>
+<li><strong>a data section</strong></li>
+<li><strong>a log section (journal)</strong></li>
+<li><strong>a realtime section</strong></li>
+</ul>
+<p>When using the default mkfs.xfs options, the realtime section is absent, and the log area is contained within the data section. The naming area specifies the settings for the file system directory. </p>
+<p><img loading="lazy" alt="understanding mkfs.xfs command output" width="696" height="200" class="aligncenter size-full wp-image-10124" sizes="(max-width: 696px) 100vw, 696px" src="./XFS_Filesystem_files/understanding-mkfs.xfs-command-output.png" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);" srcset="https://cdn.thegeekdiary.com/wp-content/uploads/2018/03/understanding-mkfs.xfs-command-output.png 696w, https://cdn.thegeekdiary.com/wp-content/uploads/2018/03/understanding-mkfs.xfs-command-output-300x86.png 300w"></p>
+<p>The following are some additional options to the mkfs.xfs command:</p>
+<ul>
+<li><strong>-b [block_size]</strong>: Each section of the file system is divided into a certain number of blocks. XFS allows you to choose the logical block size for each section of the file system. The physical disk blocks are always 512 bytes. The default value of the logical block size is 4 KB. This is the recommended block size for file systems larger than 100 MB. The minimum logical block is 512 bytes and is recommended for file systems smaller than 100 MB and for file systems with many small files. The maximum block size is the page size of the kernel.</li>
+<li><strong>-d [data_section_options]</strong>: These options specify the location, size, and other parameters of the data section of the file system. The data section of the file system is divided into allocation groups to improve the performance of XFS. More allocation groups imply that you can achieve more parallelism when allocating blocks and inodes. Use the – d agcount=[value] option to select the number of allocation groups. The default number of allocation groups is 8 when the file system size is between 128 MB and 8 GB. Alternatively you can use the –d agsize=[value] option to select the size of allocation groups. The agcount and agsize parameters are mutually exclusive. The minimum allocation group size is 16 MB; the maximum size is just under 1 TB. Increase the number of allocation groups from the default if there is sufficient memory and a lot of allocation activity. Do not set the number of allocation groups too high, because this can cause the file system to use large amounts of CPU time, especially when the file system is nearly full.</li>
+<li><strong>-n [naming_options]</strong>: These options specify the version and size parameters for the file system directory (or naming area). This allows you to choose a logical block size for the file system directory that is greater than the logical block size of the file system. For example, in a file system with many small files, the file system logical block size could be small (512 bytes) and the logical block size for the file system directory could be large (4 KB). This can improve the performance of directory lookups, because the tree storing the index information has larger blocks.</li>
+</ul>
+</body></html>

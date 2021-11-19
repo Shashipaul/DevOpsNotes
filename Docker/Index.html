@@ -184,16 +184,149 @@ div.b {
 	<ul>
 			<li>Instructions (Docker Image):<br>
 			  &ensp;&ensp;&ensp;* docker images<br>
-
-			  </b></em><br>
-			</li>
+			  &ensp;&ensp;&ensp;* getenforce >>> check the status<br>
+			  &ensp;&ensp;&ensp;* setenforce 0>>> disable setdenforce before mounting volume(if we keep enabled will not able to write in host machine)<em style="color:Red;">Reference : <b>Volume_1</b></em><br>
+			  &ensp;&ensp;&ensp;* mkdir volume<br>
+			  &ensp;&ensp;&ensp;* docker run -d -v /volume:/var/lib/mysql --name=db -e MYSQL_ROOT_PASSWORD=redhat mysql:5.6<br>
+			  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* docker exect --it db /var/bash<br>
+			  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* mysql -u root -p<br>
+			  </li>
+			  <li>Create Volume :<br>
+			  &ensp;&ensp;&ensp;* docker volume ls<br>
+			  &ensp;&ensp;&ensp;* docker volume create mysqlvol<br>
+			  &ensp;&ensp;&ensp;* docker run -d -v mysqlvol:/var/lib/mysql --name=db -e MYSQL_ROOT_PASSWORD=redhat mysql:5.6<br>					  
+			  &ensp;&ensp;&ensp;* docker inspect db <em style="color:Red;">Reference : <b>Volume_2</b></em><br>
+			  &ensp;&ensp;&ensp;* docker rm  mysqlvol >>> Delete volume<br> </li>			
+			</ul>			
+			<li>Attach Volume on AWS and mount on linux:<br>
+			  &ensp;&ensp;&ensp;* /var/lib/docker/volumes/ >>>>> default location of the volumes in case required<br>		
+			  &ensp;&ensp;&ensp;* docker system df  >>>>> Check for the volume size <em style="color:Red;">Reference : <b>Volume_3</b></em><br>	</li>			  
 			</ul>
+			<li>Create New Volume on AWS >>>>> Create AWS EBS<br>		
+			  &ensp;&ensp;&ensp;* Attach the storage with the instance<br>
+			  &ensp;&ensp;&ensp;* lsblk  >>>>> list the volume attched on instance<br>
+              &ensp;&ensp;&ensp;* lsblk  >>>>> list the volume attched on instance<br>	
+              &ensp;&ensp;&ensp;* mkfs.xfs /dev/xvdf >>>>> Format disk space <a href="XFS_Filesystem.html"><em style="color:Green;"><b>xfs</a></b></em><br>	
+			  &ensp;&ensp;&ensp;* mount /dev/xvdf /val1/ >>>>> Mount volume<br>
+			  &ensp;&ensp;&ensp;* df -TH /val1<br>
+			  &ensp;&ensp;&ensp;* setenforce 0<br>		
+			  &ensp;&ensp;&ensp;* docker run -it -v /var1:/opt --name=testcon centos:7<br>	
+			  &ensp;&ensp;&ensp;* docker volume ls<br>	
+			  &ensp;&ensp;&ensp;* docker system df<br>	</li>		  
+			</ul>
+			<li>Notes :<br>		
+			  &ensp;&ensp;&ensp;<em style="color:Red;"><b>* docker system prune >>>>> Delete container, networks, images</b></em><br>	</li>		  
+			</ul>
+
 		
 	</td>
 	<td style="width:20%">
 	<p><strong><b>docker_6:</b></strong></p>
-	<img src="images\docker_6.PNG" alt="cluster" width="500" height="250"></td>
+	<img src="images\docker_6.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>Volume_1:</b></strong></p>
+	<img src="images\Volume_1.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>Volume_2:</b></strong></p>
+	<img src="images\Volume_2.PNG" alt="cluster" width="500" height="250">	
+	<p><strong><b>Volume_3:</b></strong></p>
+	<img src="images\Volume_3.PNG" alt="cluster" width="500" height="250"></td>	
   </tr>
+  <tr>
+    <td>7</td>
+    <td>docker images file</td>
+    <td>	
+			<li>Images Build Process:<br>
+			    &ensp;&ensp;&ensp;* Manual<br>
+				&ensp;&ensp;&ensp;* dockerfile<br></li>
+				<li>How to write Docker file :</li>
+				<table style="width:100%">
+				<tr>
+				<th>S No</th>
+				<th>Parameter</th> 
+				<th>Value</th>
+				<th>Description</th>
+				</tr>
+				  <tr>
+					<td>0</td>
+					<td>s</td>
+					<td>x</td>
+					<td>s</td>					
+					</tr>
+					<tr>
+					<td>1</td>
+					<td>FROM</td>
+					<td>debian</td>	
+					<td>Base Image refrence</td>						
+					</tr> 
+					<td>2</td>
+					<td>MANITAINER</td>
+					<td>email/authername</td>	
+					<td>Optional: </td>						
+					</tr>					
+					<tr>
+					<td>3</td>
+					<td>RUN</td>
+					<td>groupadd mysql</td>	
+					<td>Command need to execute</td>
+					</tr>
+					<tr>															
+					<td>4</td>
+					<td>ADD</td>
+					<td></td>	
+					<td>Want to copy file into image</td>
+					</tr>	
+					<tr>					
+					<td>5</td>
+					<td>COPY</td>
+					<td></td>	
+					<td>Want to copy file into image</td>					
+					</tr>
+					<tr>					
+					<td>6</td>
+					<td>EXPOSE</td>
+					<td>groupadd mysql</td>	
+					<td>-----------------------------------------------Labe:4---1:10-----------------------------------------------</td>
+					</tr>
+					<tr>					
+					<td>7</td>
+					<td>WORKDIR</td>
+					<td>groupadd mysql</td>	
+					<td>s</td>
+					</tr>
+					<tr>					
+					<td>8</td>
+					<td>USER</td>
+					<td>groupadd mysql</td>	
+					<td>s</td>
+					</tr>
+					<tr>					
+                    <td>9</td>
+					<td>ENV</td>
+					<td>groupadd mysql</td>	
+					<td>s</td>
+					</tr>	
+					<tr>						
+					<td>10</td>
+					<td>CMD</td>
+					<td>groupadd mysql</td>	
+					<td>s</td>
+					</tr>
+					<tr>						
+					<td>11</td>
+					<td>ENTRYPOINT</td>
+					<td>groupadd mysql</td>	
+					<td>s</td>	
+					</tr>					
+				</table>
+       		<li>docker build -t mysql:5.6 .	</li>
+			
+	</td>
+	<td style="width:20%">
+	<p><strong><b>OverlayFS_1 :</b></strong></p>
+	<img src="images\OverlayFS_1.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>OverlayFS_2 :</b></strong></p>
+	<img src="images\OverlayFS_2.PNG" alt="cluster" width="500" height="250">
+	</td>
+  </tr>  
 </table>
 
 </body>
