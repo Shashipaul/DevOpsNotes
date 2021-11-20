@@ -197,11 +197,13 @@ div.b {
 			  &ensp;&ensp;&ensp;* docker run -d -v mysqlvol:/var/lib/mysql --name=db -e MYSQL_ROOT_PASSWORD=redhat mysql:5.6<br>					  
 			  &ensp;&ensp;&ensp;* docker inspect db <em style="color:Red;">Reference : <b>Volume_2</b></em><br>
 			  &ensp;&ensp;&ensp;* docker rm  mysqlvol >>> Delete volume<br> </li>			
-			</ul>			
+			</ul>
+			<ul>			
 			<li>Attach Volume on AWS and mount on linux:<br>
 			  &ensp;&ensp;&ensp;* /var/lib/docker/volumes/ >>>>> default location of the volumes in case required<br>		
 			  &ensp;&ensp;&ensp;* docker system df  >>>>> Check for the volume size <em style="color:Red;">Reference : <b>Volume_3</b></em><br>	</li>			  
 			</ul>
+			<ul>
 			<li>Create New Volume on AWS >>>>> Create AWS EBS<br>		
 			  &ensp;&ensp;&ensp;* Attach the storage with the instance<br>
 			  &ensp;&ensp;&ensp;* lsblk  >>>>> list the volume attched on instance<br>
@@ -214,6 +216,7 @@ div.b {
 			  &ensp;&ensp;&ensp;* docker volume ls<br>	
 			  &ensp;&ensp;&ensp;* docker system df<br>	</li>		  
 			</ul>
+			<ul>
 			<li>Notes :<br>		
 			  &ensp;&ensp;&ensp;<em style="color:Red;"><b>* docker system prune >>>>> Delete container, networks, images</b></em><br>	</li>		  
 			</ul>
@@ -233,7 +236,7 @@ div.b {
   <tr>
     <td>7</td>
     <td>docker images file</td>
-    <td>	
+    <td><ul>	
 			<li>Images Build Process:<br>
 			    &ensp;&ensp;&ensp;* Manual<br>
 				&ensp;&ensp;&ensp;* dockerfile<br></li>
@@ -243,6 +246,7 @@ div.b {
 				<th>S No</th>
 				<th>Parameter</th> 
 				<th>Value</th>
+				<th>Example</th>
 				<th>Description</th>
 				</tr>
 				  <tr>
@@ -255,69 +259,82 @@ div.b {
 					<td>1</td>
 					<td>FROM</td>
 					<td>debian</td>	
-					<td>Base Image refrence</td>						
+					<td>Base Image refrence</td>
+                    <td>Image_1</td>					
 					</tr> 
 					<td>2</td>
 					<td>MANITAINER</td>
 					<td>email/authername</td>	
-					<td>Optional: </td>						
+					<td>Optional: Free text</td>	
+					<td>Image_1</td>					
 					</tr>					
 					<tr>
 					<td>3</td>
 					<td>RUN</td>
-					<td>groupadd mysql</td>	
+					<td></td>	
 					<td>Command need to execute</td>
+					<td>Image_1</td>					
 					</tr>
 					<tr>															
 					<td>4</td>
 					<td>ADD</td>
 					<td></td>	
-					<td>Want to copy file into image</td>
+					<td>lets you do that too, but it also supports 2 other sources. First, you can use a URL instead of a local file / directory.</td>
+					<td>Image_1</td>					
 					</tr>	
 					<tr>					
 					<td>5</td>
 					<td>COPY</td>
 					<td></td>	
-					<td>Want to copy file into image</td>					
+					<td>copy in a local file or directory from your host </td>
+					<td>Image_1</td>					
 					</tr>
 					<tr>					
 					<td>6</td>
 					<td>EXPOSE</td>
-					<td>groupadd mysql</td>	
-					<td>-----------------------------------------------Labe:4---1:10-----------------------------------------------</td>
+					<td></td>
+					<td>Expose to the port</td>	
+					<td>Image_1</td>					
+					<td></td>
 					</tr>
 					<tr>					
 					<td>7</td>
 					<td>WORKDIR</td>
-					<td>groupadd mysql</td>	
-					<td>s</td>
+					<td></td>	
+					<td>Change to the working directory</td>
+					<td>Image_1</td>					
 					</tr>
 					<tr>					
 					<td>8</td>
 					<td>USER</td>
-					<td>groupadd mysql</td>	
-					<td>s</td>
+					<td></td>
+					<td>Define process on the container run by user</td>	
+					<td>Image_1</td>					
 					</tr>
 					<tr>					
                     <td>9</td>
 					<td>ENV</td>
-					<td>groupadd mysql</td>	
-					<td>s</td>
+					<td></td>
+					<td>Value which are comman and repeated multiple times in dockerfile  (Varible)</td>	
+					<td>Image_1</td>					
 					</tr>	
 					<tr>						
 					<td>10</td>
 					<td>CMD</td>
-					<td>groupadd mysql</td>	
-					<td>s</td>
+					<td></td>
+					<td>procsses under the CMD command would start when container starts</td>	
+					<td>Image_1</td>					
 					</tr>
 					<tr>						
 					<td>11</td>
 					<td>ENTRYPOINT</td>
-					<td>groupadd mysql</td>	
-					<td>s</td>	
-					</tr>					
+					<td></td>
+					<td>it basically to execute shell file on creation/booting time of container</td>	
+					<td>Image_1</td>					
+					</tr></ul>					
 				</table>
        		<li>docker build -t mysql:5.6 .	</li>
+			<li>docker run -d -P --name=mysql --(Image)--</li>
 			
 	</td>
 	<td style="width:20%">
@@ -325,6 +342,8 @@ div.b {
 	<img src="images\OverlayFS_1.PNG" alt="cluster" width="500" height="250">
 	<p><strong><b>OverlayFS_2 :</b></strong></p>
 	<img src="images\OverlayFS_2.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>Image_1 :</b></strong></p>
+	<img src="images\Image_1.PNG" alt="cluster" width="500" height="250">	
 	</td>
   </tr>  
 </table>
