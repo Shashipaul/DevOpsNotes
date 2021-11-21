@@ -331,21 +331,202 @@ div.b {
 					<td></td>
 					<td>it basically to execute shell file on creation/booting time of container</td>	
 					<td>Image_1</td>					
-					</tr></ul>					
+					</tr>
+					<tr>						
+					<td>12</td>
+					<td>VOLUME</td>
+					<td></td>
+					<td>Its use to mount volume during the creation of container</td>	
+					<td>Image_3</td>					
+					</tr>
+					</ul>					
 				</table>
        		<li>docker build -t mysql:5.6 .	</li>
 			<li>docker run -d -P --name=mysql --(Image)--</li>
 			
 	</td>
 	<td style="width:20%">
-	<p><strong><b>OverlayFS_1 :</b></strong></p>
-	<img src="images\OverlayFS_1.PNG" alt="cluster" width="500" height="250">
-	<p><strong><b>OverlayFS_2 :</b></strong></p>
-	<img src="images\OverlayFS_2.PNG" alt="cluster" width="500" height="250">
-	<p><strong><b>Image_1 :</b></strong></p>
-	<img src="images\Image_1.PNG" alt="cluster" width="500" height="250">	
+	<p><strong><b>Image_1 :</b></strong></p>	
+	<img src="images\Image_1.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>Image_2 :</b></strong></p>
+	<img src="images\Image_2.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>Image_3 :</b></strong></p>
+	<img src="images\Image_3.PNG" alt="cluster" width="500" height="250">	
 	</td>
-  </tr>  
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>docker Network</td>
+    <td><br>
+	<ul>
+			<li>Docker Container by default works bridge network concept.Its seprate network for container >>> <em style="color:Red;"><b>Network_2</b></em><br>
+			    &ensp;&ensp;&ensp;* docker network ls >> list network<br>
+				&ensp;&ensp;&ensp;* docker network inspect bridge >> inspect knowledge about the bridge<br>
+				&ensp;&ensp;&ensp;* ifconfig docker0 >> docker external port to communicate external host >>> Network_1<br>
+			</li>
+			</ul>
+			<ul>
+			<li>How to setup custom bridge:</li>
+			    &ensp;&ensp;&ensp;* docker network create --subnet 192.168.10.0/24 --driver bridge dev >> Creating bridge with the name of dev<br>
+				&ensp;&ensp;&ensp;* docker network ls >> List bridge<br>	
+				&ensp;&ensp;&ensp;* docker run -it --name=con1 --network dev centos >> create docker container with the bridge dev<br>
+				&ensp;&ensp;&ensp;* docker network inspect dev | grep -i name >> check for the container under the bridge dev<br>
+				&ensp;&ensp;&ensp;* docker network connect bridge  con1 >> link container with two networks in running container<br>	
+				&ensp;&ensp;&ensp;* docker network disconnect bridge  con1 >>  disconnect network container<br>		
+				&ensp;&ensp;&ensp;* docker run -it --name=con2 --ip 192.168.10.10 --network dev centos >> Create docker with specific ip address<br>
+				&ensp;&ensp;&ensp;* docker run -it --name=con3 --ip 192.168.10.20 --hostname=web --network dev centos >> Create docker with specific ip address and hostname<br>				
+		</ul>
+		<li>How to use Host Network rather than bridge:</li>
+			    &ensp;&ensp;&ensp;* netstat -tnlp | grep -w 80  >>> check for the port 80 in use on base system<br>
+				&ensp;&ensp;&ensp;* docker run -d --name=webserver1 --network=host ngenx:latest<br>
+			</ul>
+	</td>
+	<td style="width:20%">
+	<p><strong><b>Network_1 :</b></strong></p>
+	<img src="images\Network_1.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>Network_2 :</b></strong></p>
+	<img src="images\Network_2.PNG" alt="cluster" width="500" height="250">
+  </tr> 
+ <tr>
+    <td>9</td>
+    <td>docker Compose (Provisioning of containers): use to run repeated commands to build containers</td>
+    <td><br>
+	<ul>
+			<li>List of compose commands: <br>
+			    &ensp;&ensp;&ensp;* Docker inspect -(Container Name)-<br>
+				&ensp;&ensp;&ensp;* Install docker "sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /bin/docker-compose"<br>
+				&ensp;&ensp;&ensp;* chmod u+x /bin/docker-compose<br>
+				&ensp;&ensp;&ensp;* docker compose version<br>
+				&ensp;&ensp;&ensp;* mkdir demo<br>
+				&ensp;&ensp;&ensp;* vim docker-compose.yaml >>>> Create compse file with the name docker-compose  <em style="color:Red;"><b>compose_1</b></em><br>
+				&ensp;&ensp;&ensp;* docker-compose up -d<br>
+				&ensp;&ensp;&ensp;* docker-compose ps<br>
+				&ensp;&ensp;&ensp;* docker-compose stop >>> use to stop in the same dir where docker-compose.yaml file exist<br>
+				&ensp;&ensp;&ensp;* docker-compose start >>> use to run in the same dir where docker-compose.yaml file exist<br>
+				&ensp;&ensp;&ensp;* docker-compose rm >>> remove container create from docker-compose.yaml<br>
+				&ensp;&ensp;&ensp;* vim docker-compose.yaml >>> example >>><em style="color:Red;"><b>compose_2</b></em><br>
+				&ensp;&ensp;&ensp;* docker network ls>>> docker always creates its own seprate network<br>
+				&ensp;&ensp;&ensp;* docker inspect network wordpress | grep -i subnet<br>
+				&ensp;&ensp;&ensp;* docker-compose down >>> stop and delete in single command<br>
+				&ensp;&ensp;&ensp;* Create custom network with docker-compose for containers >>> example >>><em style="color:Red;"><b>compose_3 and compose_4</b></em><br>
+				&ensp;&ensp;&ensp;* Use docker-compose with dockerfile<br>
+				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* Create dockerfile with follwing refrence:<em style="color:Red;"><b>compose_5</b></em><br>
+				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* Create Source file with follwing refrence:<em style="color:Red;"><b>compose_6</b></em><br>
+				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* Create docker-compose with follwing refrence:<em style="color:Red;"><b>compose_7</b></em><br>
+				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* docker-compose up -d<br>
+				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* docker-compose up -d --build >>>> implement changes in source<br>
+			</li>
+
+			</ul>
+		
+	</td>
+	<td style="width:20%">
+	<p><strong><b>compose_1 :</b></strong></p>
+	<img src="images\OverlayFS_1.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>compose_2 :</b></strong></p>
+	<img src="images\compose_2.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>compose_3 :</b></strong></p>
+	<img src="images\compose_3.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>compose_4 :</b></strong></p>
+	<img src="images\compose_4.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>compose_5 :</b></strong></p>
+	<img src="images\compose_5.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>compose_6 :</b></strong></p>
+	<img src="images\compose_6.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>compose_7 :</b></strong></p>
+	<img src="images\compose_7.PNG" alt="cluster" width="500" height="250">
+  </tr>   
+  <tr>
+    <td>10</td>
+    <td>Docker Registry</td>
+    <td><br>
+	<ul>
+			<li>Registry Server:<br>
+			    &ensp;&ensp;&ensp;* Community based<br>
+				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* docker  : docker.io or docker.hub<br>
+				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* redhat  : registry.access.redhat.com<br>				
+				&ensp;&ensp;&ensp;* Custom registry<br>
+			</li>
+			</ul>
+	<ul>
+			<li>Docker hub:<br>
+			    &ensp;&ensp;&ensp;* docker search nginx  >>> list all images in docker hub<br>
+				&ensp;&ensp;&ensp;* docker search nginx  >>> push the custom image<br>
+				&ensp;&ensp;&ensp;* vim /etc/container/registries.conf  >>> configuration for Community Registry<em style="color:Red;"><b>registries_1</b></em><br>
+				&ensp;&ensp;&ensp;* Create registry on docker hub<br>
+				&ensp;&ensp;&ensp;* docker tag --(IMAGE ID)-- docker.io/shashipau/jboss:latest<br>
+				&ensp;&ensp;&ensp;* docker login<br>
+				&ensp;&ensp;&ensp;* docker push shashipau/jboss:latest<br>
+				&ensp;&ensp;&ensp;* docker search shashipau<br>
+
+			</li>
+			</ul>
+			<ul>
+			<li>Manual create docker backup:<br>
+				&ensp;&ensp;&ensp;* docker save --(IMAGE ID)-- > shashi.tar >>>> save the image for further use<br>
+				&ensp;&ensp;&ensp;* docker load -i shashi.tar >>>> load the saved image<br>			
+		</li>
+	</ul>
+	<ul>
+			<li>Custom registry:<br>
+                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* VM Registry Server<br>	
+                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* Container Registry Server<br>					
+			</li>
+			</ul>
+			<ul>
+			<li>VM Registry Server:<br>
+			    &ensp;&ensp;&ensp;* hostnamectl set-hostname registry-server<br>
+			    &ensp;&ensp;&ensp;* bash<br>
+				&ensp;&ensp;&ensp;* yum install docker-distribution -y<br>
+				&ensp;&ensp;&ensp;* systemctl start docker-distribution<br>
+				&ensp;&ensp;&ensp;* systemctl enable docker-distribution<br>
+				&ensp;&ensp;&ensp;* netstat -tnIp | grep -w 5000   >>> default port for registry<br>
+				&ensp;&ensp;&ensp;* ls -ld /var/lib/registry  >>> default location of registry<br>
+				&ensp;&ensp;&ensp;* vim /etc/docker/daemon.json  >>> make location of registry server<br>
+				&ensp;&ensp;&ensp;* {"insecure-registries":["172.0.0.92:5000"]}  >>> Create entry in file for non https request for push<br>
+				&ensp;&ensp;&ensp;* systemctl restart docker<br>
+				&ensp;&ensp;&ensp;&ensp;* push image into local docker-distribution<br>
+				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* docker tag --(IMAGE ID)-- 172.0.0.92:5000/apache.local <em style="color:Red;"><b>distribution_1</b></em><br>
+				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* docker push 172.0.0.92:5000/apache.local <em style="color:Red;"><b>distribution_1</b></em><br>
+				&ensp;&ensp;&ensp;&ensp;* Import image into local docker-distribution<br>
+				&ensp;&ensp;&ensp;&ensp;* vim /etc/docker/daemon.json  >>> make location of registry server<br>
+				&ensp;&ensp;&ensp;&ensp;* {"insecure-registries":["172.0.0.92:5000"]}  >>> Create entry in file for non https request for import<br>
+				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* docker pull 172.0.0.92:5000/apache.local<br>
+				&ensp;&ensp;&ensp;* systemctl stop docker-distribution<br>
+				&ensp;&ensp;&ensp;* systemctl disable docker-distribution<br>
+				&ensp;&ensp;&ensp;* yum remove docker-distribution -y<br>
+			</li>
+			</ul>
+			<ul>
+			<li>Container Registry Server:<br>
+			    &ensp;&ensp;&ensp;* yum install docker -y<br>
+				&ensp;&ensp;&ensp;* systemctl start docker<br>
+				&ensp;&ensp;&ensp;* systemctl disable docker<br>
+				&ensp;&ensp;&ensp;* docker pull registry:2<br>
+				&ensp;&ensp;&ensp;* docker volume create vol1<br>
+				&ensp;&ensp;&ensp;* docker run -d -v vol1:/var/lib/registry -p 5000:5000 --ame=registry registry:2<br>
+				&ensp;&ensp;&ensp;* docker ps<br>
+				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* docker tag --(IMAGE ID)-- 172.0.0.92:5000/apache.local<br>
+				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* docker push 172.0.0.92:5000/apache.local<br>
+				&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;* ls /var/lib/registry/docker/registry/v2/repositories/<em style="color:Red;"><b>distribution_2</b></em><br>
+			    
+			</li>
+			</ul>
+			<ul>
+			<li>Create Certificate<em style="color:Red;"><b>Certificate_1 and Certificate_2</b></em></li>
+			<li>Create certificate Container Registry<em style="color:Red;"><b>registries_3</b></em></li>
+			</ul>
+	</td>
+	<td style="width:20%">
+	<p><strong><b>distribution_1 :</b></strong></p>
+	<img src="images\distribution_1.PNG" alt="cluster" width="500" height="50">
+	<p><strong><b>registries_3 :</b></strong></p>
+	<img src="images\registries_3.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>Certificate_1 :</b></strong></p>
+	<img src="images\Certificate_1.PNG" alt="cluster" width="500" height="250">
+	<p><strong><b>Certificate_2 :</b></strong></p>
+	<img src="images\Certificate_2.PNG" alt="cluster" width="500" height="250">
+  </tr>    
 </table>
 
 </body>
