@@ -243,6 +243,10 @@ th, td {
     <td style="width:10%">AWS Cli</td>
     <td style="width:20%"><p><strong><b>Cli_1 :</b></strong></p>
 	<img src="images\Cli_1.PNG" alt="cluster" width="500" height="150"><br></div>
+	<p><strong><b>s3api_1 :</b></strong></p>
+	<img src="images\s3api_1.PNG" alt="cluster" width="500" height="250"><br></div>
+	<p><strong><b>IAM_1 :</b></strong></p>	
+	<img src="images\IAM_1.PNG" alt="cluster" width="500" height="250"><br></div>
 	</td>
 	<td style="width:20%">Work with AWS cli<br>
 	<ul>
@@ -252,6 +256,7 @@ th, td {
 		&ensp;&ensp;*&ensp;Choose an Amazon Machine Image (AMI)<br>
 		&ensp;&ensp;*&ensp;Choose an Instance Type<br>
 		&ensp;&ensp;*&ensp;Launch >>> <em style="color:red;"><b>Cli_1</b></em><br>
+		
 		</li>
 	<li>Create IAM Role:<br>
 		&ensp;&ensp;*&ensp;Click on Users<br> 
@@ -273,14 +278,129 @@ th, td {
 		  &ensp;&ensp;*&ensp;Then Click on Attach<br>
 		</li>
 		<li>Check for AWS S3 Commands: <br>
-		  &ensp;&ensp;*&ensp;AWS S3 ls<br>
-		  &ensp;&ensp;*&ensp;AWS S3 mb S3://test<br>
-		  &ensp;&ensp;*&ensp AWS S3 cp hello.txt S3://test<br>
-		  &ensp;&ensp;*&ensp;AWS S3 ls S3://test<br>
+		  &ensp;&ensp;*&ensp;aws s3 ls<br>
+		  &ensp;&ensp;*&ensp;aws s3 mb S3://test<br>
+		  &ensp;&ensp;*&ensp;aws s3 cp hello.txt S3://test<br>
+		  &ensp;&ensp;*&ensp;aws s3 ls S3://test<br>
+		  &ensp;&ensp;*&ensp;aws s3api list-objects --bucket bumid-testi --page-size 5 >>>(Command use to fetch information for S3 with API request) Refrence : <em style="color:red;"><b>s3api_1</b></em><br>
+		  &ensp;&ensp;*&ensp;aws s3api list-objects --bucket bumid-testi --max-items 1 >>>(Command use to fetch information for S3 with API request) Refrence : <em style="color:red;"><b>s3api_1</b></em><br>
+		</li>
+	   <li>Create EC2 role to access S3: <br>
+		  &ensp;&ensp;*&ensp;Create Role in IAM:<br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Click Role: <em style="color:Green;"><b>Step 1</b></em><br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Select AWS service<br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Select Common use cases<br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;On the next screen Attach Permissions Policies<br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Click on the Policies.Refrence : <em style="color:red;"><b>IAM_1</b></em><br> 
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Add Tags<br> 
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Add Role Name<br> 
+		  &ensp;&ensp;*&ensp;Create EC2:<em style="color:Green;"><b>Step 2</b></em><br><br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Click on EC2<br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Launch Instance<br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Choose an Amazon Machine Image (AMI)<br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Choose an Instance Type<br>		 
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Configure instance Details<br>
+		  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; <em style="color:Green;"><b>To Attach role: </b></em> Select IAM role droupdown (Create in step 1) and select role <br> 
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Create new key pair name or select existing<br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Review Instance Launch<br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Add Tags<br> 
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Add Role Name<br> 
+		  &ensp;&ensp;*&ensp;<em style="color:Red;"><b>How to deattch attach role:</b></em> <br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Under EC2 >> instance<br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Click on Actions<br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Select security<br>
+		  &ensp;&ensp;&ensp;&ensp;*&ensp;Modify IAM Role<br>
+          &ensp;&ensp;&ensp;&ensp;*&ensp; On Ec2 instance list keys by running following command : <em style="color:Green;"><b>aws configure list</b></em><br> 		  
 		</li>		
-		
-	<ul>
+	</ul>
 	</td>
+	<tr>
+    <td style="width:5%">7</td>
+    <td style="width:10%">RDS (Relational Database)</td>    
+	<td style="width:20%">
+	<p><strong><b>RDS_1 :</b></strong></p>
+	<img src="images\RDS_1.PNG" alt="cluster" width="500" height="150"><br></div>	
+	<p><strong><b>RDS_2 :</b></strong></p>
+	<img src="images\RDS_2.PNG" alt="cluster" width="500" height="150"><br></div>
+	<p><strong><b>RDS_3 :</b></strong></p>
+	<img src="images\RDS_3.PNG" alt="cluster" width="500" height="150"><br></div>
+	<p><strong><b>RDS_4 :</b></strong></p>
+	<img src="images\RDS_4.PNG" alt="cluster" width="500" height="50"><br></div>
+	<p><strong><b>MYSQL_EC2_1 :</b></strong></p>
+	<img src="images\MYSQL_EC2_1.PNG" alt="cluster" width="500" height="50"><br></div>
+	<p><strong><b>MySql :</b></strong></p>
+	<img src="images\MySql.PNG" alt="cluster" width="500" height="50"><br></div>
+	</td>	
+	<td style="width:35%"><ul>
+	<li>Type of RDS: <em style="color:Red;"><b>RDS_1</b></em>: <br>
+	&ensp;&ensp;*&ensp;OLTP (Online Transection Processing)<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Mysql, Oracle<br>
+	&ensp;&ensp;*&ensp;OLAP (Online Analytics Processing)<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;RedShift<br>
+	<li>Create RDS <em style="color:Red;"><b>(RDS_4)</b></em> : <br>
+	&ensp;&ensp;*&ensp; Search for Database >>> select RDS <br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Create Database<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Choose a database creation method >> Standard Create <br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Select Engine Options >> Select mySql<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Select  version >> MySQl 8.0.20 <br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Select  Template >> Production <br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Under Setting <br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; DB Instance Identifier >>> DB_Name<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Create Credentials Setting >>> Master Username<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Create Credentials Setting >>> Master Password<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; DB instance Type:  <em style="color:Red;"><b>RDS_2</b></em><br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; DB Instance Identifier >>> DB_Name<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Storage <em style="color:Red;"><b>RDS_3</b></em><br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; DB Instance Identifier >>> DB_Name<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Select avaliblity and durability<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Connectivity<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Vertual Provate Cloud (VPC)<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Select Subnet Group<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Select Public Access >>> No<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Select new Secority Group >>> RDS-sg<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Additional Configration >> Databae Port<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Database Authentication >> Password authentication<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Database Options<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Initila Database Name<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Database parameter group<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Option group<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; backup retention period<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Select backup window<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Monitoring<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Log Exports<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Select Maintinence<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Click Create<br>
+	&ensp;&ensp;*&ensp;Create EC2:<br>
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Click on EC2<br>
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Launch Instance<br>
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Choose an Amazon Machine Image (AMI)<br>
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Choose an Instance Type<br>		 
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Configure instance Details<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; <em style="color:Green;"><b>To Attach role: </b></em> Select IAM role droupdown (Create in step 1) and select role <br> 
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Create new key pair name or select existing<br>
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Add User Data mention in refrence:  <em style="color:Red;"><b>MYSQL_EC2_1</b></em><br>
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Create New SecorityGroup</em><br>
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Review Instance Launch<br>
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Add Tags<br>
+	&ensp;&ensp;*&ensp;Enable RDS secority Group to access EC2: <br>
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Select RDS secority Group<br>
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Select Actions<br>
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Edit Inbound Rules<br>
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Add New Rule<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Add Type<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Select Source EC2 Secority Group<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Save Rule<br>
+	&ensp;&ensp;&ensp;&ensp;*&ensp;Test Connection:<br>
+	&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Command to check connection <em style="color:Red;"><b>MySql</b></em><br>
+		</li>	
+		</ul>
+		<ul>
+		<li>RDS Multi-AZ and Read Replicas :<br>	
+		
+		</li>	
+		</ul>
+	</td>
+  </tr>	
   </tr>	
 </table>
 </div>
