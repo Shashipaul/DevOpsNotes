@@ -21,8 +21,8 @@ th, td {
   <tr>
     <th style="width:5%">S No</th>
     <th style="width:10%">Title</th> 
-    <th style="width:30%">Steps</th>
-	<th style="width:45%">Refrence</th>
+    <th style="width:45%">Steps</th>
+	<th style="width:35%">Refrence</th>
   </tr>
   <tr>
     <td>1</td>
@@ -66,6 +66,59 @@ th, td {
 	<img src="images\S3_1.PNG" alt="cluster" width="500" height="50">
 	<p><strong><b>S3_2:</b></strong></p>
 	<img src="images\S3_2.PNG" alt="cluster" width="500" height="150">
+	</td>
+  </tr>  
+  <tr>
+    <td>3</td>
+    <td>S3 ACL and Bucket Policy</td>
+    <td>
+	 <ul><li>Create an S3 Bucket:<br>
+	 &ensp;&ensp;*&ensp;Create a new Bucket<br>
+	 &ensp;&ensp;&ensp;&ensp;*&ensp;Bucket Name<br>
+	 &ensp;&ensp;&ensp;&ensp;*&ensp;Region<br>
+	 &ensp;&ensp;*&ensp;Bucket Setting for Block Public Access<br>
+	 &ensp;&ensp;&ensp;&ensp;*&ensp;Block all public access<br>
+	 &ensp;&ensp;&ensp;&ensp;*&ensp;Bucket Versioning >> Disable<br>
+	 &ensp;&ensp;*&ensp; Add Tag > Key > Value<br>
+	 &ensp;&ensp;*&ensp; Default Encryption > Disable<br>
+	 &ensp;&ensp;*&ensp; Advance Setting > Disable<br>
+	 &ensp;&ensp;*&ensp; Click Create Bucket<br>
+	 </li></ul>
+	 <ul><li>Configure an Accrss Control List:<br>
+	 &ensp;&ensp;*&ensp;On S3 Bucket<br>
+	 &ensp;&ensp;*&ensp;Select Permissions<br>
+	 &ensp;&ensp;*&ensp;On Bucket Policy >> Select Edit<br>
+	 &ensp;&ensp;*&ensp;Use Bucket Policy Generator to create policy<br>
+	 &ensp;&ensp;*&ensp;Copy the code generated and past into Bucket Policy >> Refrence :<em style="color:blue;">S3Policy</em><br>
+	 &ensp;&ensp;*&ensp;Intelligent-Tiering<br>
+	 </li></ul>
+	 <ul><li>Type of Encryption:<br>
+	 &ensp;&ensp;*&ensp;Encryption in Transit >>Type:  SSL/TLS, HTTPS<br>
+	 &ensp;&ensp;*&ensp;Encryption at Rest > Server Side Encryption >>>Type : SSE-S3,SSE-KMS, SSE-C<br>
+	 &ensp;&ensp;*&ensp;Encryption at Rest > Server Side Encryption > Client Side Encryption<br>
+	 &ensp;&ensp;*&ensp;Use Bucket Policy Generator to create policy Refrence :<em style="color:blue;"> S3_Encryption</em><br>
+	 &ensp;&ensp;*&ensp;Copy the code generated and past into Bucket Policy >> Refrence :<em style="color:blue;">S3Policy</em><br>
+	 &ensp;&ensp;*&ensp;Intelligent-Tiering<br>	
+	 </li></ul>
+     <ul><li>Configure Encryption:<br>
+	 &ensp;&ensp;*&ensp;Select the Bucket<br>
+	 &ensp;&ensp;*&ensp;Click on Permissions<br>
+	 &ensp;&ensp;*&ensp;Under the Bucket Policy >> Select Edit<br>
+	 &ensp;&ensp;*&ensp;Use Policy Generater for Generating Policy >> Refrence :<em style="color:blue;">S3_Encryption_2</em><br>	 
+	 </li></ul>	 
+	 <ul><li>CROS (Cross-Origin Resource Sharing) Configure:<br>
+	 &ensp;&ensp;*&ensp;009 CORS Configuration - Demo.VIDEO_AUDIO<br>
+	 </li></ul>	 
+	 </td>	
+	 <td>
+	<p><strong><b>S3Policy :</b></strong></p>
+	<img src="images\S3Policy.PNG" alt="cluster" width="500" height="50">
+	<p><strong><b>S3_Encryption :</b></strong></p>
+	<img src="images\S3_Encryption.PNG" alt="cluster" width="500" height="50">
+	<p><strong><b>S3_Encryption_1 :</b></strong></p>
+	<img src="images\S3_Encryption_1.PNG" alt="cluster" width="500" height="50">
+	<p><strong><b>S3_Encryption_2 :</b></strong></p>
+	<img src="images\S3_Encryption_2.PNG" alt="cluster" width="500" height="50">
 	</td>
   </tr>  
  </table>
