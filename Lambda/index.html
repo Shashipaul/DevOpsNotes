@@ -31,40 +31,49 @@ div.a {
   </tr>
   <tr>
     <td>2</td>
-    <td>Create Execution Role For Lambda</td>
+    <td>Create lambda_functions</td>
     <td>Ingress
 	</td>
 	<td>
-	<p><strong><b>Import lib:</b></strong></p><br>
-	<img src="images\Import_OS_Path.PNG" alt="cluster" width="500" height="100">
-	<p><strong><b>constant  for execution Role :</b></strong></p><br>
-	<img src="images\Create_Role_Constant.PNG" alt="cluster" width="500" height="100"><br>
-	<p><strong><b>Execution Role For Lambda :</b></strong></p><br>
-	<img src="images\create_execution_role_for_lambda.PNG" alt="cluster" width="500" height="200"><br>
-	<p><strong><b>Create Role :</b></strong></p><br>
-	<img src="images\Create_Role.PNG" alt="cluster" width="500" height="100">
-	<p><strong><b>Execute Main function for creating role :</b></strong></p><br>
-	<img src="images\Create_Role_creare.PNG" alt="cluster" width="500" height="100">
-	<p><strong><b>Attach Access Policy to Execute Role:</b></strong></p><br>
-	<img src="images\attach_access_policy.PNG" alt="cluster" width="500" height="100">
-	<p><strong><b>Deploy Lambda Function:</b></strong></p><br>
-	<img src="images\deploy_lambda_function.PNG" alt="cluster" width="500" height="100">
-	<p><strong><b>Handler Method:</b></strong></p><br>
-	<img src="images\HandlerMethod.PNG" alt="cluster" width="500" height="100">
-	<p><strong><b>Load Utils into MainCode:</b></strong></p><br>
-	<img src="images\Load_Utils_into_MainCode.PNG" alt="cluster" width="500" height="100">
 	
 	
 	</td>
 	<td "width:30%">
-	<li>Steps to Create Utils lib: <br> 
-	&ensp;&ensp;*&ensp;Under the scr directory<br>
-	&ensp;&ensp;*&ensp;Create New Python File > Name the file utils.py<br>
-	&ensp;&ensp;*&ensp;Create Method to zip package <a href="create_Zip_file.html"> Create Zip Package</a><br>
-	&ensp;&ensp;*&ensp;Create New Directory Python_Lambda > Create Python File: lambda_function.py</a><br>
-	&ensp;&ensp;&ensp;&ensp;*&ensp;Create Handler Method (Starting point of Lambda Function) <em style="color:blue;">Handler Method</em></a><br>
-	&ensp;&ensp;&ensp;&ensp;*&ensp; Import Untils into lambda_functions <em style="color:blue;">Load Utils into MainCode</em></a><br>
+	<li>Create lambda_functions : <br> 
+	&ensp;&ensp;&ensp;*&ensp; lambda_client()<br>
+	&ensp;&ensp;&ensp;*&ensp; iam_client()<br>
+	&ensp;&ensp;&ensp;*&ensp; iam_client()<br>
+	&ensp;&ensp;&ensp;*&ensp; create_access_policy_for_lambda()<br>
+	&ensp;&ensp;&ensp;*&ensp; create_execution_role_for_lambda()<br>
+	&ensp;&ensp;&ensp;*&ensp; attach_access_policy_to_execution_role()<br>
+	&ensp;&ensp;&ensp;*&ensp; deploy_lambda_function(function_name, runtime, handler, role_arn, source_folder)<br>
+	&ensp;&ensp;&ensp;*&ensp; invoke_lambda_function(function_name)<br>
+	&ensp;&ensp;&ensp;*&ensp; add_environment_variables_to_lambda(function_name, variables)<br>
+	&ensp;&ensp;&ensp;*&ensp; update_lambda_function_code(function_name, source_folder)<br>
+	&ensp;&ensp;&ensp;*&ensp; publish_a_new_version(function_name):<br>
+	&ensp;&ensp;&ensp;*&ensp; create_alias_for_new_version(function_name, alias_name, version):<br>
+	&ensp;&ensp;&ensp;*&ensp; invoke_lambda_with_alias(function_name, alias_name):<br>
+	&ensp;&ensp;&ensp;*&ensp; get_function(function_name):<br>
+	&ensp;&ensp;&ensp;*&ensp; get_all_functions():<br>
+	&ensp;&ensp;&ensp;*&ensp; increase_lambda_execution_memory(function_name, new_memory_size):<br>
+	&ensp;&ensp;&ensp;*&ensp; delete_lambda_function(function_name):
+	</li>
+	</td>
+  </tr> 
+   <tr>
+    <td>2</td>
+    <td>Create utils</td>
+    <td>Ingress
+	</td>
+	<td>
 	
+	
+	</td>
+	<td "width:30%">
+	<li>Create utils : <br> 
+	&ensp;&ensp;&ensp;*&ensp; make_zip_file_bytes(path):<br>
+    &ensp;&ensp;&ensp;*&ensp; files_to_zip(path):<br>
+	&ensp;&ensp;&ensp;*&ensp; read_jar_file(path):
 	</li>
 	</td>
   </tr> 

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+th, td {
+  background-color: #96D4D4;
+}
+</style>
+</head>
+<body>
+
+<h2>Serverless</h2>
+<div>
+<table style="width:100%">
+  <tr>
+    <th style="width:5%">S No</th>
+    <th style="width:15%">Steps</th> 
+    <th style="width:25%">Description</th>
+	<th style="width:20%">Refrence</th>
+  </tr> 
+<tr>
+		<td>1</td>
+		<td>Create Lambda</td>
+		<td><ul>
+			<li>Create Serverless application<br>
+			&ensp;&ensp;*&ensp;Lambda<br>
+			&ensp;&ensp;*&ensp;API Gateway<br>
+			&ensp;&ensp;*&ensp;S3<br>
+		</ul>
+		<ul>
+			<li>Creating lambda function :<br>
+			&ensp;&ensp;*&ensp;Select Lambda<br>
+			&ensp;&ensp;*&ensp;Create Function<br>
+			&ensp;&ensp;*&ensp;Select Auther from Scratch<br>
+			&ensp;&ensp;*&ensp;Basic Information :<br>
+			&ensp;&ensp;&ensp;&ensp;*&ensp;Function Name :<br>
+			&ensp;&ensp;&ensp;&ensp;*&ensp;Runtime<br>
+			&ensp;&ensp;&ensp;&ensp;*&ensp;Change default execution role<br>
+			&ensp;&ensp;&ensp;&ensp;*&ensp;Advanced Setting<br>
+			&ensp;&ensp;&ensp;&ensp;*&ensp;Add Code >> Lambda_2<br>
+			&ensp;&ensp;&ensp;&ensp;*&ensp;Click Deploy<br>
+		</ul>
+		<ul>
+			<li>Click Add Triger :<br>
+			&ensp;&ensp;*&ensp;Add Trigger:<br>
+			&ensp;&ensp;&ensp;&ensp;*&ensp;Trigger Configuration:<br>
+			&ensp;&ensp;&ensp;&ensp;*&ensp;Select a Trigger  >> API Trigger<br>
+			&ensp;&ensp;&ensp;&ensp;*&ensp;Select an API<br>
+		</ul>
+		<ul>
+			<li>Create S3 :<br>
+			&ensp;&ensp;*&ensp;Create Bucket :<br>
+			&ensp;&ensp;&ensp;&ensp;*&ensp;General Configuration :<br>
+			&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Bucket Name<br>
+			&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;AWS Region<br>
+			&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Block Public Access Settings for this bucket<br>
+			&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Unselect Block all public Access<br>
+			&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Static Website hosting <br>
+		</ul></td>
+		<td style="width:20%"><p><strong><b>Lambda_1 :</b></strong></p>
+	<img src="images\Lambda_1.PNG" alt="cluster" width="500" height="150"><br></div>
+	<p><strong><b>Lambda_2 :</b></strong></p>
+	<img src="images\Lambda_2.PNG" alt="cluster" width="500" height="150"><br></div>	
+		</td>
+</tr>
+<tr>
+		<td>2</td>
+		<td>Lambda Versions</td>
+		<td><ul><li>Creating lambda function :<br>
+		&ensp;&ensp;*&ensp; Upload the code<br>
+		&ensp;&ensp;*&ensp; After creating lambda<br>
+		&ensp;&ensp;*&ensp; Click on Actions<br>
+		&ensp;&ensp;*&ensp; Publish new version >> Lambda_5<br>
+		&ensp;&ensp;*&ensp; Create alias<br>
+			</li></ul>
+			</td>
+		<td><p><strong><b>Lambda_5 :</b></strong></p>
+	<img src="images\Lambda_5.PNG" alt="cluster" width="500" height="150"><br></div>
+		</td>
+</tr>		
+<tr>
+		<td>3</td>
+		<td>Lambda and VPCs</td>
+		<td><ul><li>Command for existing fuction:  >>> Lambda_6<br>
+		&ensp;&ensp;&ensp;aws lambda update-function-configuration --function-name my-function --vpcconfig
+		&ensp;&ensp;&ensp;SubnetIds=subnet-1122aabb,SecurityGroupIds=sg-51530134<br>
+		&ensp;*&ensp;Command for new finction:<br>
+		&ensp;&ensp;*&ensp; Under the Network :<br>
+		&ensp;&ensp;*&ensp; Select VPC<br>
+		&ensp;&ensp;*&ensp; select subnet<br>
+		&ensp;&ensp;*&ensp; select secority Group<br>
+		</li></ul>
+			</td>
+		<td><p><strong><b>Lambda_6 :</b></strong></p>
+	<img src="images\Lambda_6.PNG" alt="cluster" width="500" height="150"><br></div>
+	<p><strong><b>Lambda_7 :</b></strong></p>
+	<img src="images\Lambda_7.PNG" alt="cluster" width="500" height="150"><br></div>
+		</td>
+</tr>	
+<tr>
+		<td>4</td>
+		<td> Step Functions</td>
+		<td><ul><li> Orchestration for Serverless Applications:  <br>
+		&ensp;&ensp;&ensp;*&ensp;Sequential Workflow : StepFunctions_1: <br>
+		&ensp;&ensp;&ensp;*&ensp;Parallel Workflow : StepFunctions_2: <br>
+		&ensp;&ensp;&ensp;*&ensp;Braching Workflow: StepFunctions_3: <br>
+		&ensp;&ensp;&ensp;*&ensp;Select Application integration<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Click Step Function<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Create State Machines<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Select Run a sample Project :<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Select job Poller<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Add Definition<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Deploy resources<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp; Start Execution<br>
+		&ensp;&ensp;*&ensp; Delete Step Function :<br>
+		&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Under the CloudFunction<br> 
+		&ensp;&ensp;&ensp;&ensp;&ensp;*&ensp;Select >> Delete Stack<br> 
+		</li></ul>
+			</td>
+		<td><p><strong><b>StepFunctions_1 :</b></strong></p>
+	<img src="images\StepFunctions_1.PNG" alt="cluster" width="500" height="150"><br></div>	
+	<p><strong><b>StepFunctions_2 :</b></strong></p>
+	<img src="images\StepFunctions_2.PNG" alt="cluster" width="500" height="150"><br></div>	
+		</td>
+</tr>
+<tr>
+		<td>5</td>
+		<td>X-Ray</td>
+		<td><ul><li> Orchestration for Serverless Applications:  <br>
+		&ensp;&ensp;&ensp;*&ensp;Sequential Workflow : StepFunctions_1: <br>
+		</li></ul>
+			</td>
+		<td><p><strong><b>StepFunctions_1 :</b></strong></p>
+	<img src="images\StepFunctions_1.PNG" alt="cluster" width="500" height="150"><br></div>	
+	<p><strong><b>StepFunctions_2 :</b></strong></p>
+	<img src="images\StepFunctions_2.PNG" alt="cluster" width="500" height="150"><br></div>	
+		</td>
+</tr>						
+</table>
+</div>
+
+</body>
+</html>
